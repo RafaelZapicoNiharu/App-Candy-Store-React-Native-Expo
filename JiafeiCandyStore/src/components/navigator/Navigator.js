@@ -16,24 +16,14 @@ const Navigator = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="telaInicial">
+            <Stack.Navigator initialRouteName="telaInicial"
+             >
 
                 <Stack.Screen name="Home"
                     component={TelaHome} />
-                <Stack.Screen name="Perfil"
-                    component={TelaPerfil} />
-                <Stack.Screen name="Login"
-                    component={TelaLogin} />
-                <Stack.Screen name="Cadastro"
-                    component={TelaCadastroUser} />
-                <Stack.Screen name="Doce"
-                    component={TelaCadastroDoce} />
-                <Stack.Screen name="Encomendar"
-                    component={TelaEncomendar} />
-                <Stack.Screen name="Inicio"
-                    component={TelaFuncional} />
-                <Stack.Screen name="Minhas Encomendas"
-                    component={TelaMinhasEncomendas} />
+
+              
+            
 
             </Stack.Navigator>
 

@@ -13,7 +13,7 @@ const style = StyleSheet.create({
     },
     imgTB:{
         width: "100%",
-        height: (1280/1920)*widthTela,
+        height: (800/800)*widthTela,
     }
 })
 
