@@ -20,7 +20,9 @@ const Navigator = () => {
              >
 
                 <Stack.Screen name="Home"
-                    component={TelaHome} />
+                    component={TelaHome}
+                    options={{ headerShown: false }}
+                     />
 
               
             

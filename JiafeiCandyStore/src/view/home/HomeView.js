@@ -19,13 +19,19 @@ const HomeView = ({ navigation }) => {
         button: {
             backgroundColor: '#614a41',
             padding: 5,
-            borderRadius: 30, 
+            borderRadius: 30,
             alignItems: 'center',
         },
         buttonText: {
-            fontWeight:500,
+            fontWeight: 500,
             color: 'white',
-            fontSize: 19, 
+            fontSize: 19,
+        },
+        additionalText: {
+            textAlign: 'center',
+            fontSize: 16,
+            marginTop: 50, 
+            color:"#9399a3"
         },
     });
 
@@ -48,6 +54,7 @@ const HomeView = ({ navigation }) => {
                     <Text style={style.buttonText}>Inscreva-se</Text>
                 </Button>
             </View>
+            <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>
         </View>
     );
 };
