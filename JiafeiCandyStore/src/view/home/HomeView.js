@@ -45,7 +45,7 @@ const HomeView = ({ navigation }) => {
                     onPress={() => navigation.navigate('Login')}
                 >
 
-                    <Text style={style.buttonText}>Entrar</Text>
+                    <Text style={style.buttonText}>Sign in</Text>
                 </Button>
 
              
@@ -54,7 +54,7 @@ const HomeView = ({ navigation }) => {
                     style={style.button}
                     onPress={() => navigation.navigate('Cadastro')}
                 >
-                    <Text style={style.buttonText}>Inscreva-se</Text>
+                    <Text style={style.buttonText}>Sign up</Text>
                 </Button>
             </View>
             <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>

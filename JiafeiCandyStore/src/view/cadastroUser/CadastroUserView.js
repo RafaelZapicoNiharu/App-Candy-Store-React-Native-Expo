@@ -75,7 +75,7 @@ const CadastroUserView = ({ navigation }) => {
                     style={style.button}
                     onPress={() => navigation.navigate('Home')}
                 >
-                    <Text style={style.buttonText}>Inscrever-se</Text>
+                    <Text style={style.buttonText}>Sign up</Text>
                 </Button>
 
 

@@ -72,7 +72,7 @@ const LoginView = ({ navigation }) => {
                     style={style.button}
                     onPress={() => navigation.navigate('Home')}
                 >
-                    <Text style={style.buttonText}>Entrar</Text>
+                    <Text style={style.buttonText}>Sign in</Text>
                 </Button>
 
             </View>
