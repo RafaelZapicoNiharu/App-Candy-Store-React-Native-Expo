@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import TopBoard from '../../components/TopBoard/TopBoard';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, IconButton, TextInput } from 'react-native-paper';
 
 const CadastroUserView = ({ navigation }) => {
     const style = StyleSheet.create({
@@ -10,10 +10,23 @@ const CadastroUserView = ({ navigation }) => {
             alignItems: 'stretch',
             backgroundColor: '#fff',
         },
+        TextoCad: {
+            color: '#614a41',
+            textAlign: 'center',
+            fontSize: 22,
+            fontWeight:550,
+        },
         containerHVBtn: {
             flex: 1,
-            margin: 20,
+            margin: 10,
             flexDirection: 'column',
+            justifyContent: 'space-evenly',
+        },
+
+        botoes2: {
+
+            margin: 20,
+            flexDirection: 'row',
             justifyContent: 'space-evenly',
         },
         button: {
@@ -54,6 +67,8 @@ const CadastroUserView = ({ navigation }) => {
                 <TextInput
                     label="CEP"
                 />
+                <Text style={{ fontSize: 20, textAlign: 'center' }}   >Already have an account? <Text style={style.TextoCad} onPress={() => navigation.navigate('Login')}   >Sign in </Text></Text>
+
 
                 <Button
                     mode="contained"
@@ -62,6 +77,8 @@ const CadastroUserView = ({ navigation }) => {
                 >
                     <Text style={style.buttonText}>Inscrever-se</Text>
                 </Button>
+
+
 
             </View>
             <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>
