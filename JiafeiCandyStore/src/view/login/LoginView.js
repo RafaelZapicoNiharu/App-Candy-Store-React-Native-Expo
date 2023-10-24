@@ -15,9 +15,9 @@ const LoginView = ({ navigation }) => {
             color: '#614a41',
             textAlign: 'center',
             fontSize: 22,
-            fontWeight:550,
+            fontWeight: 550,
         },
-        
+
         containerHVBtn: {
             flex: 1,
             margin: 20,
@@ -42,10 +42,15 @@ const LoginView = ({ navigation }) => {
             color: "#9399a3"
         },
     });
-
+    const [iconeSenha, setIconeSenha] = useState("eye")
+    const [mostrasenha, setMostraSenha] = useState(true)
     const [obj, setObj] = useState({ email: "", password: "" })
-    
-  
+
+    const toggleIconeSenha = () => {
+        setIconeSenha(iconeSenha === "eye" ? "eye-off" : "eye");
+        setMostraSenha(mostrasenha === true ? false : true);
+    };
+
 
     return (
         <View style={style.containerHV}>
@@ -59,13 +64,14 @@ const LoginView = ({ navigation }) => {
                 />
 
                 <TextInput
-                      value={obj.password}
-                      onChangeText={(e) => setObj({ ...obj, password: e })}
+                    value={obj.password}
+                    onChangeText={(e) => setObj({ ...obj, password: e })}
                     label="Password"
-                    secureTextEntry
-                    right={<TextInput.Icon icon="eye" />}
+                    secureTextEntry={mostrasenha}
+                    right={<TextInput.Icon icon={iconeSenha}
+                        onPress={toggleIconeSenha} />}
                 />
-                <Text style={{fontSize:20,textAlign: 'center'}}   >Dont have an account? <Text style={style.TextoCad} onPress={() => navigation.navigate('Cadastro')}   >Sign up </Text></Text>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}   >Dont have an account? <Text style={style.TextoCad} onPress={() => navigation.navigate('Cadastro')}   >Sign up </Text></Text>
 
                 <Button
                     mode="contained"
@@ -76,7 +82,7 @@ const LoginView = ({ navigation }) => {
                 </Button>
 
             </View>
-            
+
             <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>
         </View>
     );
