@@ -29,6 +29,11 @@ const Navigator = () => {
                     options={{ headerShown: true }}
                 />
 
+                <Stack.Screen name="Cadastro"
+                    component={TelaCadastroUser}
+                    options={{ headerShown: true }}
+                />
+
 
 
 
