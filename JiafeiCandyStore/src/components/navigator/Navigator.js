@@ -17,15 +17,20 @@ const Navigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="telaInicial"
-             >
+            >
 
                 <Stack.Screen name="Home"
                     component={TelaHome}
                     options={{ headerShown: false }}
-                     />
+                />
 
-              
-            
+                <Stack.Screen name="Login"
+                    component={TelaLogin}
+                    options={{ headerShown: true }}
+                />
+
+
+
 
             </Stack.Navigator>
 

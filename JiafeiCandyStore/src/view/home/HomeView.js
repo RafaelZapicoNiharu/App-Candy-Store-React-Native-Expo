@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import TopBoard from '../../components/TopBoard/TopBoard';
-import { Button } from 'react-native-paper';
+import { Button, TextInput } from 'react-native-paper';
 
 const HomeView = ({ navigation }) => {
     const style = StyleSheet.create({
@@ -30,8 +30,8 @@ const HomeView = ({ navigation }) => {
         additionalText: {
             textAlign: 'center',
             fontSize: 16,
-            marginTop: 50, 
-            color:"#9399a3"
+            marginTop: 50,
+            color: "#9399a3"
         },
     });
 
@@ -42,10 +42,13 @@ const HomeView = ({ navigation }) => {
                 <Button
                     mode="contained"
                     style={style.button}
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.navigate('Login')}
                 >
+
                     <Text style={style.buttonText}>Entrar</Text>
                 </Button>
+
+             
                 <Button
                     mode="contained"
                     style={style.button}
