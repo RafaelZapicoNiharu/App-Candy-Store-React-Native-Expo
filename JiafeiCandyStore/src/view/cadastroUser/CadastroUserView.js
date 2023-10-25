@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import TopBoard from '../../components/TopBoard/TopBoard';
+import { useState } from "react"
 import { Button, IconButton, TextInput } from 'react-native-paper';
 
 const CadastroUserView = ({ navigation }) => {
@@ -48,6 +48,18 @@ const CadastroUserView = ({ navigation }) => {
         },
     });
 
+    const [iconeSenha, setIconeSenha] = useState("eye")
+    const [password, setPassword] = useState("")
+
+    const [mostrasenha, setMostraSenha] = useState(true)
+    const [obj, setObj] = useState({ name: "", email: "",password:"",cep:"" })
+
+
+    const toggleIconeSenha = () => {
+        setIconeSenha(iconeSenha === "eye" ? "eye-off" : "eye");
+        setMostraSenha(mostrasenha === true ? false : true);
+    };
+
     return (
         <View style={style.containerHV}>
 
@@ -55,17 +67,27 @@ const CadastroUserView = ({ navigation }) => {
 
                 <TextInput
                     label="Name"
+                    value={obj.name}
+                    onChangeText={(e) => setObj({ ...obj, name: e })}
                 />
                 <TextInput
                     label="Email"
+                    value={obj.email}
+                    onChangeText={(e) => setObj({ ...obj, email: e })}
                 />
                 <TextInput
                     label="Password"
-                    secureTextEntry
-                    right={<TextInput.Icon icon="eye" />}
+                    secureTextEntry={mostrasenha}
+                    right={<TextInput.Icon icon={iconeSenha}  
+                    value={password}
+                    onChangeText={(e) => setObj({ ...obj, password: e })}
+                    onPress={toggleIconeSenha}
+                    />}
                 />
                 <TextInput
                     label="CEP"
+                    value={obj.cep}
+                    onChangeText={(e) => setObj({ ...obj, cep: e })}
                 />
                 <Text style={{ fontSize: 20, textAlign: 'center' }}   >Already have an account? <Text style={style.TextoCad} onPress={() => navigation.navigate('Login')}   >Sign in </Text></Text>
 
@@ -73,7 +95,7 @@ const CadastroUserView = ({ navigation }) => {
                 <Button
                     mode="contained"
                     style={style.button}
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => console.log(obj)}
                 >
                     <Text style={style.buttonText}>Sign up</Text>
                 </Button>

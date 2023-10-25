@@ -3,8 +3,9 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 import TelaHome from "../../view/home/HomeView";
 import TelaPerfil from "../../view/perfil/PerfilView"
-import TelaLogin from "../../view/login/LoginView"
 import TelaFuncional from "../../view/funcional/FuncionalView"
+import TelaLogin from "../../view/login/LoginView"
+
 import TelaMinhasEncomendas from "../../view/myEncomendas/MyEncomendasView"
 import TelaCadastroDoce from "../../view/cadastroDoce/CadastroDoceView"
 import TelaCadastroUser from "../../view/cadastroUser/CadastroUserView"
@@ -32,6 +33,10 @@ const Navigator = () => {
                 <Stack.Screen name="Cadastro"
                     component={TelaCadastroUser}
                     options={{ headerShown: true }}
+                />
+                 <Stack.Screen name="Funcional"
+                    component={TelaFuncional}
+                    options={{ headerShown: false }}
                 />
 
 
