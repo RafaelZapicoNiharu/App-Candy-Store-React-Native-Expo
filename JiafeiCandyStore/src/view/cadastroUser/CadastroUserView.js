@@ -14,7 +14,7 @@ const CadastroUserView = ({ navigation }) => {
             color: '#614a41',
             textAlign: 'center',
             fontSize: 22,
-            fontWeight:550,
+            fontWeight: 550,
         },
         containerHVBtn: {
             flex: 1,
@@ -49,10 +49,10 @@ const CadastroUserView = ({ navigation }) => {
     });
 
     const [iconeSenha, setIconeSenha] = useState("eye")
-    const [password, setPassword] = useState("")
+    // const [password, setPassword] = useState("")
 
     const [mostrasenha, setMostraSenha] = useState(true)
-    const [obj, setObj] = useState({ name: "", email: "",password:"",cep:"" })
+    const [obj, setObj] = useState({ name: "", email: "", password: "", cep: "" })
 
 
     const toggleIconeSenha = () => {
@@ -78,12 +78,14 @@ const CadastroUserView = ({ navigation }) => {
                 <TextInput
                     label="Password"
                     secureTextEntry={mostrasenha}
-                    right={<TextInput.Icon icon={iconeSenha}  
-                    value={password}
-                    onChangeText={(e) => setObj({ ...obj, password: e })}
+                    right={<TextInput.Icon icon={iconeSenha} />}
+                    value={obj.password}
+                    onChangeText={(e) => {
+                        setObj({ ...obj, password: e })
+                    }}
                     onPress={toggleIconeSenha}
-                    />}
                 />
+
                 <TextInput
                     label="CEP"
                     value={obj.cep}

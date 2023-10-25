@@ -11,7 +11,7 @@ const FuncionalView = ({ navigation }) => {
        
     
         return (
-            <NavigatorTab/>
+ a
 
             
     );
