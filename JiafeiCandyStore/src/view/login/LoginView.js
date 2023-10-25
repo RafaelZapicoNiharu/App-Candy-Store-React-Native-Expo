@@ -76,7 +76,7 @@ const LoginView = ({ navigation }) => {
                 <Button
                     mode="contained"
                     style={style.button}
-                    onPress={() => navigation.navigate('Funcional')}
+                    onPress={() => navigation.navigate('Logado')}
                 >
                     <Text style={style.buttonText}>Sign in</Text>
                 </Button>

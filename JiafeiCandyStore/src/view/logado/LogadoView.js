@@ -6,16 +6,16 @@ import { Button, Text } from "react-native-paper";
 
 
 
-const FuncionalView = ({ navigation }) => {
+const LogadoView = ({ navigation }) => {
 
        
     
         return (
             
-            <View>a</View>
+            <NavigatorTab/>
 
             
     );
 };
 
-export default FuncionalView
+export default LogadoView
