@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useState } from "react"
 import { Button, IconButton, TextInput } from 'react-native-paper';
@@ -52,13 +52,38 @@ const CadastroUserView = ({ navigation }) => {
     // const [password, setPassword] = useState("")
 
     const [mostrasenha, setMostraSenha] = useState(true)
-    const [obj, setObj] = useState({ name: "", email: "", password: "", cep: "" })
+    const [obj, setObj] = useState({ name: "", email: "", password: "", cep: "", logradouro: "", bairro: "", cidade: "", estado: "", numero: "", complemento: "" })
 
 
     const toggleIconeSenha = () => {
         setIconeSenha(iconeSenha === "eye" ? "eye-off" : "eye");
         setMostraSenha(mostrasenha === true ? false : true);
     };
+
+    const buscaCEP2 = async () => {
+        const sincrono = await fetch(`https://viacep.com.br/ws/${obj.cep}/json/`)
+            .then((resp) => {
+                console.log(resp)
+                return resp.json();
+            })
+            .then((json) => {
+                console.log(json)
+                return json
+            })
+        setObj({
+            ...obj,
+            logradouro: sincrono.logradouro,
+            bairro: sincrono.bairro,
+            cidade: sincrono.localidade,
+            estado: sincrono.uf,
+        });
+    }
+
+    useEffect(() => {
+        if (obj.cep.length == 8) {
+            buscaCEP2()
+        }
+    }, [obj.cep])
 
     return (
         <View style={style.containerHV}>
@@ -85,15 +110,38 @@ const CadastroUserView = ({ navigation }) => {
                     }}
                     onPress={toggleIconeSenha}
                 />
-
+                <Text>Endereço:</Text>
                 <TextInput
                     label="CEP"
                     value={obj.cep}
                     onChangeText={(e) => setObj({ ...obj, cep: e })}
                 />
+                <TextInput
+                    label="Logradouro"
+                    value={obj.logradouro}
+                    onChangeText={(e) => setObj({ ...obj, logradouro: e })}
+                />
+                <TextInput
+                    label="Cidade"
+                    value={obj.cidade}
+                    onChangeText={(e) => setObj({ ...obj, cidade: e })}
+                />
+                <TextInput
+                    label="Estado"
+                    value={obj.estado}
+                    onChangeText={(e) => setObj({ ...obj, estado: e })}
+                />
+                <TextInput
+                    label="Número"
+                    value={obj.numero}
+                    onChangeText={(e) => setObj({ ...obj, numero: e })}
+                />
+                <TextInput
+                    label="Complemento"
+                    value={obj.complemento}
+                    onChangeText={(e) => setObj({ ...obj, complemento: e })}
+                />
                 <Text style={{ fontSize: 20, textAlign: 'center' }}   >Already have an account? <Text style={style.TextoCad} onPress={() => navigation.navigate('Login')}   >Sign in </Text></Text>
-
-
                 <Button
                     mode="contained"
                     style={style.button}
@@ -101,9 +149,6 @@ const CadastroUserView = ({ navigation }) => {
                 >
                     <Text style={style.buttonText}>Sign up</Text>
                 </Button>
-
-
-
             </View>
             <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>
         </View>
