@@ -35,11 +35,14 @@ const Navigator = () => {
                     component={TelaCadastroUser}
                     options={{ headerShown: true }}
                 />
-                 <Stack.Screen name="Logado"
+                <Stack.Screen name="Logado"
                     component={TelaLogado}
                     options={{ headerShown: false }}
                 />
-
+                <Stack.Screen name="CadastroDoce"
+                    component={TelaCadastroDoce}
+                    options={{ headerShown: false }}
+                />
 
 
 
