@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 
 function NavigatorTab() {
   return (
-    <NavigationContainer independent={true}>
+    // <NavigationContainer independent={true}>
       <Tab.Navigator
         initialRouteName={funcionalName}
         screenOptions={({ route }) => ({
@@ -49,7 +49,7 @@ function NavigatorTab() {
 
 
       </Tab.Navigator>
-    </NavigationContainer>
+    // </NavigationContainer>
   );
 }
 

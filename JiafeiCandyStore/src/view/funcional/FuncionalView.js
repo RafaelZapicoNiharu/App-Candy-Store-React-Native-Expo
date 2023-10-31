@@ -25,9 +25,7 @@ const FuncionalView = ({ navigation }) => {
         },
     });
 
-
     return (
-
 
         <View style={style.containerHVBtn}>
 
@@ -39,8 +37,6 @@ const FuncionalView = ({ navigation }) => {
                 <Text style={style.buttonText}>Cadastro Doce</Text>
             </Button>
         </View>
-
-
 
     );
 };

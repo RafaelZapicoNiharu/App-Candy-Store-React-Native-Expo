@@ -41,7 +41,7 @@ const Navigator = () => {
                 />
                 <Stack.Screen name="CadastroDoce"
                     component={TelaCadastroDoce}
-                    options={{ headerShown: false }}
+                    options={{ headerShown: true }}
                 />
 
 

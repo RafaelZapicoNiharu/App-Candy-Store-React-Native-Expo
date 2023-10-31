@@ -4,7 +4,7 @@ import TopBoard from "../../components/TopBoard/TopBoard";
 import { Button, Text } from "react-native-paper";
 
 
-const FuncionalView = ({ navigation }) => {
+const CadastroDoceView = ({ navigation }) => {
     const style = StyleSheet.create({
         button: {
             backgroundColor: '#614a41',
@@ -30,21 +30,7 @@ const FuncionalView = ({ navigation }) => {
 
 
         <View style={style.containerHVBtn}>
-            <Button
-                mode="contained"
-                style={style.button}
-                onPress={() => navigation.navigate('CadastroDoce')}
-            >
-                <Text style={style.buttonText}>Doces</Text>
-            </Button>
-
-            <Button
-                mode="contained"s
-                style={style.button}
-                onPress={() => navigation.navigate('Encomendar')}
-            >
-                <Text style={style.buttonText}>Encomendar</Text>
-            </Button>
+            <Text>Cadstro de Doces</Text>
         </View>
 
 
@@ -52,4 +38,4 @@ const FuncionalView = ({ navigation }) => {
     );
 };
 
-export default FuncionalView
+export default CadastroDoceView
