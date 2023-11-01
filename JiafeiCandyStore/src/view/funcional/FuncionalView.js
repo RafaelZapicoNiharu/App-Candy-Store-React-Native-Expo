@@ -36,6 +36,22 @@ const FuncionalView = ({ navigation }) => {
             >
                 <Text style={style.buttonText}>Cadastro Doce</Text>
             </Button>
+
+            <Button
+                mode="contained"
+                style={style.button}
+                onPress={() => navigation.navigate('ListaDoce')}
+            >
+                <Text style={style.buttonText}>Lista de Doce</Text>
+            </Button>
+
+            <Button
+                mode="contained"
+                style={style.button}
+                onPress={() => navigation.navigate('Encomendar')}
+            >
+                <Text style={style.buttonText}>Encomendar</Text>
+            </Button>
         </View>
 
     );

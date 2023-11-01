@@ -9,6 +9,7 @@ import TelaLogin from "../../view/login/LoginView"
 
 import TelaMinhasEncomendas from "../../view/myEncomendas/MyEncomendasView"
 import TelaCadastroDoce from "../../view/cadastroDoce/CadastroDoceView"
+import TelaListaDoce from "../../view/listaDoces/ListaDoceView"
 import TelaCadastroUser from "../../view/cadastroUser/CadastroUserView"
 import TelaEncomendar from "../../view/encomendar/EncomendarView"
 
@@ -41,7 +42,15 @@ const Navigator = () => {
                 />
                 <Stack.Screen name="CadastroDoce"
                     component={TelaCadastroDoce}
-                    options={{ headerShown: true }}
+                    options={{ headerShown: true, headerTitle: '' }}
+                />
+                <Stack.Screen name="ListaDoce"
+                    component={TelaListaDoce}
+                    options={{ headerShown: true, headerTitle: '' }}
+                />
+                <Stack.Screen name="Encomendar"
+                    component={TelaEncomendar}
+                    options={{ headerShown: true, headerTitle: '' }}
                 />
 
 

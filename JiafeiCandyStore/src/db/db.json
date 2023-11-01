@@ -29,12 +29,14 @@
     ],
     "doces": [
         {
+            "id": 1,
             "nome": "brigadeiro",
-            "preçoUnitario": "2"
+            "preco": "2"
         },
         {
+            "id": 2,
             "nome": "beijinho",
-            "preçoUnitario": "1.50"
+            "preco": "1.50"
         }
     ],
     "encomendas": [
