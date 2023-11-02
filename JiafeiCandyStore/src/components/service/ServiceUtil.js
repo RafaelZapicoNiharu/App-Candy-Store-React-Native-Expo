@@ -6,7 +6,7 @@ const buscaDoces = ( pesq = '') => {
     }).then((json)=>{
         const lista = json.filter((u) => pesq === '' || u.nome.includes(pesq))
         const uLista = lista.map((u)=>{
-            return {id: u.id, nome: u.nome, preco: u.preco}
+            return {id: u.id, nome: u.nome, preco: u.preco, quantidade: u.quantidade}
         })
         return uLista
     }).catch(()=>{

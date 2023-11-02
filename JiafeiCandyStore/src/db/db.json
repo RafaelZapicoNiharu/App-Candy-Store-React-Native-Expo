@@ -31,12 +31,14 @@
         {
             "id": 1,
             "nome": "brigadeiro",
-            "preco": "2"
+            "preco": "2",
+            "quantidade": 225
         },
         {
             "id": 2,
             "nome": "beijinho",
-            "preco": "1.50"
+            "preco": "1.50",
+            "quantidade": 105
         }
     ],
     "encomendas": [

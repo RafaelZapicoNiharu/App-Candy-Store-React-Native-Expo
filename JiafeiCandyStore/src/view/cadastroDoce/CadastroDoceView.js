@@ -12,11 +12,11 @@ const CadastroDoceView = ({ navigation }) => {
             alignItems: 'stretch',
             backgroundColor: '#fff',
         },
-        containerText:{
-            fontSize:30,
+        containerText: {
+            fontSize: 30,
             textAlign: "center",
             padding: 25,
-            color:'#614a41'
+            color: '#614a41'
         },
         containerHVBtn: {
             flex: 1,
@@ -37,7 +37,7 @@ const CadastroDoceView = ({ navigation }) => {
         }
     });
 
-    const [obj, setObj] = useState({ name: "", preco: "" })
+    const [obj, setObj] = useState({ name: "", preco: "", quantidade:"" })
 
     return (
 
@@ -56,6 +56,12 @@ const CadastroDoceView = ({ navigation }) => {
                     value={obj.preco}
                     onChangeText={(e) => setObj({ ...obj, preco: e })}
                 />
+                <TextInput
+                    label="Quantidade"
+                    value={obj.quantidade}
+                    onChangeText={(e) => setObj({ ...obj, quantidade: e })}
+                />
+
 
                 <Button
                     mode="contained"

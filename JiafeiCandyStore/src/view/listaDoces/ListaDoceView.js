@@ -20,23 +20,6 @@ const ListaDoceView = ({ navigation }) => {
             padding: 25,
             color: '#614a41'
         },
-        containerHVBtn: {
-            flex: 1,
-            margin: 10,
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
-        },
-        button: {
-            backgroundColor: '#614a41',
-            padding: 5,
-            borderRadius: 30,
-            alignItems: 'center',
-        },
-        buttonText: {
-            fontWeight: 500,
-            color: 'white',
-            fontSize: 19,
-        },
         texto: {
             fontSize: 32,
             fontWeight: 'bold',
@@ -102,7 +85,8 @@ const ListaDoceView = ({ navigation }) => {
                                 />
                                 <View style={style.cont1}>
                                     <Text style={style.texto}>{item.nome.substring(0, 14)}</Text>
-                                    <Text style={style.texto}>R$ {item.preco}</Text> {/* Altere para "preco" */}
+                                    <Text style={style.texto1}> {parseInt(item.quantidade)}</Text>
+                                    <Text style={style.texto}>R$ <Text>{parseFloat(item.preco).toFixed(2)}</Text></Text>
                                 </View>
                             </View>
                         );
