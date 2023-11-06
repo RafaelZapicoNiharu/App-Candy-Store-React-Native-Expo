@@ -1,6 +1,6 @@
 import { Dimensions, Image, StyleSheet, View } from "react-native"
 
-import logoImg from "../../../assets/img/logotipo.png"
+import logoImg from "../../../assets/img/logotipo.webp"
 
 const widthTela = Dimensions.get('screen').width
 

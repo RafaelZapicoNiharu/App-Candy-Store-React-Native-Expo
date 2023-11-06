@@ -6,6 +6,12 @@ import { Button, Text } from "react-native-paper";
 
 const FuncionalView = ({ navigation }) => {
     const style = StyleSheet.create({
+        containerHVBtn: {
+            flex: 1,
+            margin: 20,
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+        },
         button: {
             backgroundColor: '#614a41',
             padding: 5,
@@ -16,12 +22,6 @@ const FuncionalView = ({ navigation }) => {
             fontWeight: 500,
             color: 'white',
             fontSize: 19,
-        },
-        containerHVBtn: {
-            flex: 1,
-            margin: 10,
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
         },
     });
 
