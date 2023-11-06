@@ -9,7 +9,7 @@ import TelaPerfil from "../../view/perfil/PerfilView"
 import TelaFuncional from "../../view/funcional/FuncionalView"
 
 //Nomes telas
-const funcionalName = "Home";
+const funcionalName = "HomeF";
 const perfilName = "Perfil";
 
 const Tab = createBottomTabNavigator();

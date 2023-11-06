@@ -14,7 +14,7 @@ const PerfilView = ({ navigation }) => {
             flex: 1,
             margin: 20,
             flexDirection: 'column',
-            justifyContent: 'space-evenly',
+            justifyContent: 'flex-end',
             alignContent: "center"
         },
         button: {
@@ -22,6 +22,7 @@ const PerfilView = ({ navigation }) => {
             padding: 5,
             borderRadius: 30,
             alignItems: 'center',
+            marginBottom:35
         },
         buttonText: {
             fontWeight: 500,
@@ -29,18 +30,24 @@ const PerfilView = ({ navigation }) => {
             fontSize: 19,
         },
         avatar: {
-            marginTop:"30%",
+            marginTop: "30%",
             backgroundColor: "#fff",
             borderWidth: 2,
             borderColor: '#614a41',
             overflow: 'hidden',
             alignItems: 'center',
         },
-        containerTB:{
+        containerTB: {
             flex: 1,
             alignItems: "center",
         },
-    
+        TextoCad: {
+            color: '#614a41',
+            textAlign: 'center',
+            fontSize: 22,
+            fontWeight: 550,
+        },
+
     });
 
     return (
@@ -48,16 +55,23 @@ const PerfilView = ({ navigation }) => {
         <>
             <View style={style.containerTB}>
 
-            <Avatar.Image style={style.avatar} size={134} source={require("../../../assets/img/furina.webp")} />
-            
+                <Avatar.Image style={style.avatar} size={134} source={require("../../../assets/img/furina.webp")} />
+                <Text style={style.TextoCad}>Seja bem vinda, Furina!</Text>
             </View>
 
             <View style={style.containerHVBtn}>
-              
+
                 <Button
                     mode="contained"
                     style={style.button}
-                    onPress={() => navigation.navigate('Encomendar')}
+                    onPress={() => navigation.navigate('Home')}
+                >
+                    <Text style={style.buttonText}>Meus Dados</Text>
+                </Button>
+                <Button
+                    mode="contained"
+                    style={style.button}
+                    onPress={() => navigation.navigate('Homew')}
                 >
                     <Text style={style.buttonText}>Sair</Text>
                 </Button>
