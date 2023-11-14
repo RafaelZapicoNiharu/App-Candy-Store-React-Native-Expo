@@ -42,6 +42,15 @@
         }
     ],
     "encomendas": [
-        {}
+        {
+            "nome":"Pedrin",
+            "doces":"brigadeiro",
+            "quantidade": "50"
+        },
+        {
+            "nome":"Gustin",
+            "doces":"beijinho",
+            "quantidade": "25"
+        }
     ]
 }

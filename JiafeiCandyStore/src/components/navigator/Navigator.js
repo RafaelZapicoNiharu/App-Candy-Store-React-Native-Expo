@@ -11,7 +11,7 @@ import TelaMinhasEncomendas from "../../view/myEncomendas/MyEncomendasView"
 import TelaCadastroDoce from "../../view/cadastroDoce/CadastroDoceView"
 import TelaListaDoce from "../../view/listaDoces/ListaDoceView"
 import TelaCadastroUser from "../../view/cadastroUser/CadastroUserView"
-import TelaEncomendar from "../../view/encomendar/EncomendarView"
+import TelaEncomendas from "../../view/encomendas/EncomendasView"
 
 const Navigator = () => {
 
@@ -48,8 +48,8 @@ const Navigator = () => {
                     component={TelaListaDoce}
                     options={{ headerShown: true, headerTitle: '' }}
                 />
-                <Stack.Screen name="Encomendar"
-                    component={TelaEncomendar}
+                <Stack.Screen name="Encomendas"
+                    component={TelaEncomendas}
                     options={{ headerShown: true, headerTitle: '' }}
                 />
 
