@@ -21,12 +21,8 @@ const EncomendasView = ({ navigation }) => {
             color: '#614a41'
         },
         texto: {
-            fontSize: 32,
+            fontSize: 25,
             fontWeight: 'bold',
-        },
-        texto1: {
-            fontSize: 20,
-            textAlign: 'right',
         },
         edits: {
             width: '100%'
@@ -34,7 +30,8 @@ const EncomendasView = ({ navigation }) => {
         logo: {
             // flex: 1,
             margin: 5,
-            backgroundColor: '#660099'
+            backgroundColor: '#614a41',
+            color: '#fff'
         },
         cont: {
             flex: 1,
@@ -46,13 +43,24 @@ const EncomendasView = ({ navigation }) => {
             flexDirection: "column",
             padding: 15,
         },
+        button: {
+            backgroundColor: '#614a41',
+            padding: 5,
+            borderRadius: 30,
+            alignItems: 'center',
+        },
+        buttonText: {
+            fontWeight: 500,
+            color: 'white',
+            fontSize: 19,
+        }
     });
 
     const [edtSearch, setEdtSearch] = useState('')
     const [listaEncomendas, setListaEncomendas] = useState([])
 
     //const [obj, setObj] = useState({ name: "", preco: "" })
-    
+
     useEffect(() => {
         buscaEncomendas(edtSearch).then((r) => {
             setListaEncomendas(r)
@@ -85,8 +93,16 @@ const EncomendasView = ({ navigation }) => {
                                 />
                                 <View style={style.cont1}>
                                     <Text style={style.texto}>{item.nome.substring(0, 14)}</Text>
-                                    <Text style={style.texto1}> {parseInt(item.quantidade)}</Text>
-                                    <Text style={style.texto}>{item.doces}</Text>
+                                    <Text style={style.texto}>{item.doces} - {parseInt(item.quantidade)} unidade(s)</Text>
+                                </View>
+                                <View>
+                                    <Button
+                                        mode="contained"
+                                        style={style.button}
+                                        onPress={() => console.log(obj)}
+                                    >
+                                        <Text style={style.buttonText}>Concluir</Text>
+                                    </Button>
                                 </View>
                             </View>
                         );

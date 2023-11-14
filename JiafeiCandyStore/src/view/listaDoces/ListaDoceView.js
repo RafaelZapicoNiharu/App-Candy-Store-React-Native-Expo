@@ -34,7 +34,8 @@ const ListaDoceView = ({ navigation }) => {
         logo: {
             // flex: 1,
             margin: 5,
-            backgroundColor: '#660099'
+            backgroundColor: '#614a41',
+            color: '#fff'
         },
         cont: {
             flex: 1,
