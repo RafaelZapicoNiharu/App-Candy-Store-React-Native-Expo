@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useState } from "react"
 import { Button, IconButton, TextInput } from 'react-native-paper';
+import { buscaCEP2 } from '../../components/service/ServiceUtil';
 
 const CadastroUserView = ({ navigation }) => {
     const style = StyleSheet.create({
@@ -60,16 +61,8 @@ const CadastroUserView = ({ navigation }) => {
         setMostraSenha(mostrasenha === true ? false : true);
     };
 
-    const buscaCEP2 = async () => {
-        const sincrono = await fetch(`https://viacep.com.br/ws/${obj.cep}/json/`)
-            .then((resp) => {
-                console.log(resp)
-                return resp.json();
-            })
-            .then((json) => {
-                console.log(json)
-                return json
-            })
+    const buscaCEPSinc = async () => {
+        const sincrono = await buscaCEP2(obj.cep)
         setObj({
             ...obj,
             logradouro: sincrono.logradouro,
@@ -81,7 +74,7 @@ const CadastroUserView = ({ navigation }) => {
 
     useEffect(() => {
         if (obj.cep.length == 8) {
-            buscaCEP2()
+            buscaCEPSinc()
         }
     }, [obj.cep])
 
