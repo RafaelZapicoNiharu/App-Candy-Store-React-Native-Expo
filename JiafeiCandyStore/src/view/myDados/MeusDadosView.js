@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import TopBoard from '../../components/TopBoard/TopBoard';
 import { Button, Avatar, TextInput } from 'react-native-paper';
 import { useState, useEffect } from "react"
+import { buscaCEP2 } from '../../components/service/ServiceUtil';
 
 
 
@@ -122,6 +123,11 @@ const MeusDadosView = ({ navigation }) => {
                 <TextInput
                     label="Logradouro"
                     value={obj.logradouro}
+                    onChangeText={(e) => setObj({ ...obj, logradouro: e })}
+                />
+                <TextInput
+                    label="Bairro"
+                    value={obj.bairro}
                     onChangeText={(e) => setObj({ ...obj, logradouro: e })}
                 />
                 <TextInput
