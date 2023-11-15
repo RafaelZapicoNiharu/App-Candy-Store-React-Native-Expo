@@ -64,14 +64,14 @@ const PerfilView = ({ navigation }) => {
                 <Button
                     mode="contained"
                     style={style.button}
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.navigate('TelaMeusDados')}
                 >
                     <Text style={style.buttonText}>Meus Dados</Text>
                 </Button>
                 <Button
                     mode="contained"
                     style={style.button}
-                    onPress={() => navigation.navigate('Homew')}
+                    onPress={() => navigation.navigate('Home')}
                 >
                     <Text style={style.buttonText}>Sair</Text>
                 </Button>

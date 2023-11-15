@@ -6,6 +6,7 @@ import TelaPerfil from "../../view/perfil/PerfilView"
 import TelaFuncional from "../../view/funcional/FuncionalView"
 import TelaLogado from "../../view/logado/LogadoView"
 import TelaLogin from "../../view/login/LoginView"
+import TelaMeusDados from "../../view/myDados/MeusDadosView"
 
 import TelaMinhasEncomendas from "../../view/myEncomendas/MyEncomendasView"
 import TelaCadastroDoce from "../../view/cadastroDoce/CadastroDoceView"
@@ -55,6 +56,10 @@ const Navigator = () => {
                 />
                 <Stack.Screen name="TelaMinhasEncomendas"
                     component={TelaMinhasEncomendas}
+                    options={{ headerShown: true, headerTitle: '' }}
+                />
+                <Stack.Screen name="TelaMeusDados"
+                    component={TelaMeusDados}
                     options={{ headerShown: true, headerTitle: '' }}
                 />
                 <Stack.Screen name="TelaCadastroEncomendas"
