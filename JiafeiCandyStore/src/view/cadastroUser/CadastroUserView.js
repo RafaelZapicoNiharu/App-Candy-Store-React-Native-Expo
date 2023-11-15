@@ -117,7 +117,7 @@ const CadastroUserView = ({ navigation }) => {
                    <TextInput
                     label="Bairro"
                     value={obj.bairro}
-                    onChangeText={(e) => setObj({ ...obj, logradouro: e })}
+                    onChangeText={(e) => setObj({ ...obj, bairro: e })}
                 />
                 <TextInput
                     label="Cidade"
