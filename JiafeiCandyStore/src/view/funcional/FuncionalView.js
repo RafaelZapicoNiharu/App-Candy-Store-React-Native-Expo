@@ -52,6 +52,20 @@ const FuncionalView = ({ navigation }) => {
             >
                 <Text style={style.buttonText}>Encomendas</Text>
             </Button>
+            <Button
+                mode="contained"
+                style={style.button}
+                onPress={() => navigation.navigate('TelaMinhasEncomendas')}
+            >
+                <Text style={style.buttonText}>Minhas Encomendas</Text>
+            </Button>
+            <Button
+                mode="contained"
+                style={style.button}
+                onPress={() => navigation.navigate('TelaCadastroEncomendas')}
+            >
+                <Text style={style.buttonText}>Cadastro Encomendas</Text>
+            </Button>
         </View>
 
     );

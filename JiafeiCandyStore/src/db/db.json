@@ -43,11 +43,13 @@
     ],
     "encomendas": [
         {
+            "id": 1,
             "nome":"Pedrin",
             "doces":"brigadeiro",
             "quantidade": "50"
         },
         {
+            "id": 2,
             "nome":"Gustin",
             "doces":"beijinho",
             "quantidade": "25"
