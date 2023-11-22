@@ -2,7 +2,11 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import TopBoard from '../../components/TopBoard/TopBoard';
 import { Button, TextInput } from 'react-native-paper';
-import { useState } from "react"
+import { useState } from "react";
+import ObjectFactoryUtilities from '../Utilitarios/ObjectFactoryUtilities';
+import axios from 'axios';
+import { useAuth } from '../../components/auth/AuthProvider';
+import { ScrollView } from 'react-native';
 
 const LoginView = ({ navigation }) => {
     const style = StyleSheet.create({
@@ -11,18 +15,17 @@ const LoginView = ({ navigation }) => {
             alignItems: 'stretch',
             backgroundColor: '#fff',
         },
-        TextoCad: {
-            color: '#614a41',
-            textAlign: 'center',
-            fontSize: 22,
-            fontWeight: 550,
-        },
-
         containerHVBtn: {
             flex: 1,
             margin: 20,
             flexDirection: 'column',
             justifyContent: 'space-evenly',
+        },
+        TextoCad: {
+            color: '#614a41',
+            textAlign: 'center',
+            fontSize: 22,
+            fontWeight: "500",
         },
         button: {
             backgroundColor: '#614a41',
@@ -31,7 +34,7 @@ const LoginView = ({ navigation }) => {
             alignItems: 'center',
         },
         buttonText: {
-            fontWeight: 500,
+            fontWeight: "500",
             color: 'white',
             fontSize: 19,
         },
@@ -42,47 +45,59 @@ const LoginView = ({ navigation }) => {
             color: "#9399a3"
         },
     });
-    const [iconeSenha, setIconeSenha] = useState("eye")
-    const [mostrasenha, setMostraSenha] = useState(true)
-    const [obj, setObj] = useState({ email: "", password: "" })
+    const [iconepassword, setIconepassword] = useState("eye")
+    const [mostrapassword, setMostrapassword] = useState(true)
+    const [obj, setObj] = useState({ email: "123", password: "123" })
+    const { saveUser } = useAuth();
 
-    const toggleIconeSenha = () => {
-        setIconeSenha(iconeSenha === "eye" ? "eye-off" : "eye");
-        setMostraSenha(mostrasenha === true ? false : true);
+    const toggleIconepassword = () => {
+        setIconepassword(iconepassword === "eye" ? "eye-off" : "eye");
+        setMostrapassword(mostrapassword === true ? false : true);
     };
 
+    const Logar = async () => {
+        try {
+            let objetoLogin = await ObjectFactoryUtilities.createSimpleUser(obj.email, obj.password);
+            let urlLogin = 'http://24dc-201-48-134-13.ngrok.io/login/validate';
+            let response = await axios.post(urlLogin, objetoLogin);
+            if (response.status != 401) {
+                saveUser(response);
+                console.log('User logado com sucesso!');
+                navigation.navigate('Logado')
+            }
+        } catch (error) {
+            console.error('Erro ao logar o user:', error);
+        }
+    };
 
     return (
         <View style={style.containerHV}>
-            <TopBoard />
-            <View style={style.containerHVBtn}>
-
-                <TextInput
-                    label="Email"
-                    value={obj.email}
-                    onChangeText={(e) => setObj({ ...obj, email: e })}
-                />
-
-                <TextInput
-                    value={obj.password}
-                    onChangeText={(e) => setObj({ ...obj, password: e })}
-                    label="Password"
-                    secureTextEntry={mostrasenha}
-                    right={<TextInput.Icon icon={iconeSenha}
-                        onPress={toggleIconeSenha} />}
-                />
-                <Text style={{ fontSize: 20, textAlign: 'center' }}   >Dont have an account? <Text style={style.TextoCad} onPress={() => navigation.navigate('Cadastro')}   >Sign up </Text></Text>
-
-                <Button
-                    mode="contained"
-                    style={style.button}
-                    onPress={() => navigation.navigate('Logado')}
-                >
-                    <Text style={style.buttonText}>Sign in</Text>
-                </Button>
-
-            </View>
-
+            
+            <ScrollView>
+                <View style={style.containerHVBtn}>
+                    <TextInput
+                        label="Email"
+                        value={obj.email}
+                        onChangeText={(e) => setObj({ ...obj, email: e })}
+                    />
+                    <TextInput
+                        value={obj.password}
+                        onChangeText={(e) => setObj({ ...obj, password: e })}
+                        label="Password"
+                        secureTextEntry={mostrapassword}
+                        right={<TextInput.Icon icon={iconepassword}
+                            onPress={toggleIconepassword} />}
+                    />
+                    <Text style={{ fontSize: 20, textAlign: 'center' }}   >Dont have an account? <Text style={style.TextoCad} onPress={() => navigation.navigate('Cadastro')}   >Sign up </Text></Text>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => Logar()}
+                    >
+                        <Text style={style.buttonText}>Sign in</Text>
+                    </Button>
+                </View>
+            </ScrollView>
             <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>
         </View>
     );

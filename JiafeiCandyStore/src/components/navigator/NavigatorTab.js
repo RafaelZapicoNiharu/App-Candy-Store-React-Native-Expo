@@ -35,14 +35,14 @@ function NavigatorTab() {
 
 
             return <Ionicons name={iconName} size={size} color={color} />;
-          }
-        })}
-        tabBarOptions={{
+          },
           activeTintColor: '#614a41',
           inactiveTintColor: 'grey',
           labelStyle: { paddingBottom: 10, fontSize: 10, fontWeight:600},
           style: { padding: 10, height: 70 }
-        }}>
+
+        })}
+        >
 
         <Tab.Screen name={funcionalName} options={{ headerShown: false }} component={TelaFuncional} />
         <Tab.Screen name={perfilName} options={{ headerShown: false }} component={TelaPerfil} />

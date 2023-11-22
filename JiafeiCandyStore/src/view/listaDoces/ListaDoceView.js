@@ -1,13 +1,10 @@
 import { StyleSheet, View } from "react-native";
-import NavigatorTab from "../../components/navigator/NavigatorTab";
-import TopBoard from "../../components/TopBoard/TopBoard";
-import { Avatar, Button, Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
-import { buscaDoces } from "../../components/service/ServiceUtil";
-import { FlatList } from "react-native-web";
+import { ScrollView } from "react-native";
+import ApiManagerUtilities from "../Utilitarios/ApiManagerUtilities";
 
-
-const ListaDoceView = ({ navigation }) => {
+const ListaDoceView = () => {
     const style = StyleSheet.create({
         containerHV: {
             flex: 1,
@@ -20,84 +17,114 @@ const ListaDoceView = ({ navigation }) => {
             padding: 25,
             color: '#614a41'
         },
-        texto: {
-            fontSize: 32,
-            fontWeight: 'bold',
-        },
         texto1: {
-            fontSize: 20,
-            textAlign: 'right',
+            fontSize: 18,
+            textAlign: 'left',
         },
         edits: {
             width: '100%'
         },
-        logo: {
-            // flex: 1,
-            margin: 5,
+        column: {
+            flexDirection: 'column',
+            paddingBottom: 5,
+            padding: 15,
+        },
+        button: {
             backgroundColor: '#614a41',
-            color: '#fff'
+            padding: 5,
+            margin: 10,
+            borderRadius: 30,
+            alignItems: 'center',
         },
-        cont: {
-            flex: 1,
-            flexDirection: "row",
-            padding: 15,
-        },
-        cont1: {
-            flex: 1,
-            flexDirection: "column",
-            padding: 15,
+        buttonText: {
+            fontWeight: "500",
+            color: 'white',
+            fontSize: 19,
         },
     });
 
-
     const [edtSearch, setEdtSearch] = useState('')
-    const [lista, setLista] = useState([])
+    const [doces, setDoces] = useState([])
+    const [reRender, setReRender] = useState(1);
+
+    const refreshDoces = () => {
+        setReRender(reRender => reRender + 1);
+    };
+
+    const handleApagarButton = async (property) => {
+        console.log('Apagar button ', property);
+        try {
+            let id = property;
+            const response = await ApiManagerUtilities.deleteData('http://24dc-201-48-134-13.ngrok.io/doces/excluir', id);
+            console.log(response);
+            if (response.status === 201) {
+                console.log('Doce apagado com sucesso:', response.data);
+            }
+        } catch (error) {
+            console.error('Erro ao apagar o doce:', error);
+        }
+        refreshDoces();
+    };
 
     useEffect(() => {
-        buscaDoces(edtSearch).then((r) => {
-            setLista(r)
-        })
-    }, [edtSearch])
+        ApiManagerUtilities.fetchData('http://24dc-201-48-134-13.ngrok.io/doces', null)
+            .then(data => {
+                console.log(data);
+                setDoces(data);
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados da API:', error);
+            });
+    }, [reRender]);
+
+    useEffect(() => {
+        const apiUrlDoces = 'http://24dc-201-48-134-13.ngrok.io/doces';
+
+        fetch(apiUrlDoces)
+            .then(response => response.json())
+            .then(data => {
+                const filteredDoces = data.filter((doce) => edtSearch === '' || doce.tipoDoce.includes(edtSearch));
+                setDoces(filteredDoces);
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados dos doces da API:', error);
+            });
+    }, [edtSearch]);
 
     return (
 
         <View style={style.containerHV}>
             <Text style={style.containerText}>Lista de Doces</Text>
-
             <View>
                 <TextInput
                     style={style.edits}
-                    label="Pesquisar doce"
+                    label="Pesquisar doce pelo nome"
                     placeholder="Filtrar a busca"
                     value={edtSearch}
                     onChangeText={(e) => setEdtSearch(e)}
                 ></TextInput>
-                <FlatList
-                    style={style.edits}
-                    data={lista}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => {
-                        return (
-                            <View style={style.cont}>
-                                <Avatar.Text
-                                    size={64}
-                                    label={item.nome.substring(0, 2)}
-                                    style={style.logo}
-                                />
-                                <View style={style.cont1}>
-                                    <Text style={style.texto}>{item.nome.substring(0, 14)}</Text>
-                                    <Text style={style.texto1}> {parseInt(item.quantidade)}</Text>
-                                    <Text style={style.texto}>R$ <Text>{parseFloat(item.preco).toFixed(2)}</Text></Text>
+                <ScrollView>
+                    <View style={style.container}>
+                        {doces.map((property, index) => (
+                            <View key={index}>
+                                <View style={style.container}>
+                                    <View style={style.column}>
+                                        {property.tipoDoce && <Text style={style.texto1}>Nome: {property.tipoDoce}</Text>}
+                                        {property.preco && <Text style={style.texto1}>Preco: R$ {parseFloat(property.preco).toFixed(2)}</Text>}
+                                        {property.quantidade && <Text style={style.texto1}>Quantidade: {property.quantidade}</Text>}
+                                    </View>
+                                    <View>
+                                        <Button mode="contained" style={style.button} onPress={() => handleApagarButton(property)}>
+                                            <Text style={style.buttonText}>Apagar</Text>
+                                        </Button>
+                                    </View>
                                 </View>
                             </View>
-                        );
-                    }}
-                />
+                        ))}
+                    </View>
+                </ScrollView>
             </View>
         </View>
-
-
-
     );
 };
 

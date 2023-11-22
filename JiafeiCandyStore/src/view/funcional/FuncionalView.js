@@ -1,7 +1,6 @@
 import { StyleSheet, View } from "react-native";
-import NavigatorTab from "../../components/navigator/NavigatorTab";
-import TopBoard from "../../components/TopBoard/TopBoard";
 import { Button, Text } from "react-native-paper";
+import { useAuth } from "../../components/auth/AuthProvider";
 
 
 const FuncionalView = ({ navigation }) => {
@@ -19,55 +18,63 @@ const FuncionalView = ({ navigation }) => {
             alignItems: 'center',
         },
         buttonText: {
-            fontWeight: 500,
+            fontWeight: "500",
             color: 'white',
             fontSize: 19,
         },
     });
 
+    const { isCliente, isAdmin } = useAuth();
+
     return (
 
         <View style={style.containerHVBtn}>
+            {(isAdmin()) &&
+                <>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => navigation.navigate('CadastroDoce')}
+                    >
+                        <Text style={style.buttonText}>Cadastro Doce</Text>
+                    </Button>
 
-            <Button
-                mode="contained"
-                style={style.button}
-                onPress={() => navigation.navigate('CadastroDoce')}
-            >
-                <Text style={style.buttonText}>Cadastro Doce</Text>
-            </Button>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => navigation.navigate('ListaDoce')}
+                    >
+                        <Text style={style.buttonText}>Lista de Doce</Text>
+                    </Button>
 
-            <Button
-                mode="contained"
-                style={style.button}
-                onPress={() => navigation.navigate('ListaDoce')}
-            >
-                <Text style={style.buttonText}>Lista de Doce</Text>
-            </Button>
-
-            <Button
-                mode="contained"
-                style={style.button}
-                onPress={() => navigation.navigate('Encomendas')}
-            >
-                <Text style={style.buttonText}>Encomendas</Text>
-            </Button>
-            <Button
-                mode="contained"
-                style={style.button}
-                onPress={() => navigation.navigate('TelaMinhasEncomendas')}
-            >
-                <Text style={style.buttonText}>Minhas Encomendas</Text>
-            </Button>
-            <Button
-                mode="contained"
-                style={style.button}
-                onPress={() => navigation.navigate('TelaCadastroEncomendas')}
-            >
-                <Text style={style.buttonText}>Cadastro Encomendas</Text>
-            </Button>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => navigation.navigate('Encomendas')}
+                    >
+                        <Text style={style.buttonText}>Encomendas</Text>
+                    </Button>
+                </>
+            }
+            {(isCliente()) &&
+                <>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => navigation.navigate('TelaMinhasEncomendas')}
+                    >
+                        <Text style={style.buttonText}>Minhas Encomendas</Text>
+                    </Button>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => navigation.navigate('TelaCadastroEncomendas')}
+                    >
+                        <Text style={style.buttonText}>Cadastro Encomendas</Text>
+                    </Button>
+                </>
+            }
         </View>
-
     );
 };
 

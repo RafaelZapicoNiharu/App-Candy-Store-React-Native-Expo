@@ -1,13 +1,11 @@
 import { StyleSheet, View } from "react-native";
-import NavigatorTab from "../../components/navigator/NavigatorTab";
-import TopBoard from "../../components/TopBoard/TopBoard";
-import { Avatar, Button, Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
-import { buscaEncomendas } from "../../components/service/ServiceUtil";
-import { FlatList } from "react-native-web";
+import { ScrollView } from "react-native";
+import ApiManagerUtilities from "../Utilitarios/ApiManagerUtilities";
+import TiposDocesEnum from "../../enum/TiposDocesEnum";
 
-
-const EncomendasView = ({ navigation }) => {
+const EncomendasView = () => {
     const style = StyleSheet.create({
         containerHV: {
             flex: 1,
@@ -20,52 +18,81 @@ const EncomendasView = ({ navigation }) => {
             padding: 25,
             color: '#614a41'
         },
-        texto: {
-            fontSize: 25,
-            fontWeight: 'bold',
-        },
         edits: {
             width: '100%'
         },
-        logo: {
-            // flex: 1,
-            margin: 5,
-            backgroundColor: '#614a41',
-            color: '#fff'
+        texto1: {
+            fontSize: 18,
+            textAlign: 'left',
         },
-        cont: {
-            flex: 1,
-            flexDirection: "row",
-            padding: 15,
-        },
-        cont1: {
-            flex: 1,
-            flexDirection: "column",
+        column: {
+            flexDirection: 'column',
+            paddingBottom: 5,
             padding: 15,
         },
         button: {
             backgroundColor: '#614a41',
             padding: 5,
+            margin: 10,
             borderRadius: 30,
             alignItems: 'center',
         },
         buttonText: {
-            fontWeight: 500,
+            fontWeight: "500",
             color: 'white',
             fontSize: 19,
         }
     });
 
     const [edtSearch, setEdtSearch] = useState('')
-    const [listaEncomendas, setListaEncomendas] = useState([])
+    const [encomendas, setEncomendas] = useState([])
+    const [reRender, setReRender] = useState(1)
 
-    //const [obj, setObj] = useState({ name: "", preco: "" })
+    const handleConcluirButton = async (property) => {
+        console.log('Concluir button ', property);
+        try {
+            const response = await ApiManagerUtilities.deleteData('http://24dc-201-48-134-13.ngrok.io/encomendas/excluir', property);
+            if (response.status === 201) {
+                console.log('Doce apagado com sucesso:', response.data);
+            }
+        } catch (error) {
+            console.error('Erro ao apagar o doce:', error);
+        }
+        refreshDoces();
+    };
+
+    const refreshDoces = () => {
+        setReRender(reRender => reRender + 1);
+    };
 
     useEffect(() => {
-        buscaEncomendas(edtSearch).then((r) => {
-            setListaEncomendas(r)
-        })
-    }, [edtSearch])
+        ApiManagerUtilities.fetchData('http://24dc-201-48-134-13.ngrok.io/encomendas', null)
+            .then(data => {
+                console.log(data);
+                setEncomendas(data);
+                // console.log(data.tipoDoce);
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados da API:', error);
+            });
+    }, [reRender]);
+
+    useEffect(() => {
+        const apiUrl = 'http://24dc-201-48-134-13.ngrok.io/encomendas';
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const searchTermLower = edtSearch.toLowerCase();
+                const filteredEncomendas = data.filter((encomenda) => 
+                    searchTermLower === '' || 
+                    encomenda.nome.toLowerCase().includes(searchTermLower)
+                );
+                setEncomendas(filteredEncomendas);
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados da API:', error);
+            });
+    }, [edtSearch]);
 
     return (
 
@@ -74,42 +101,37 @@ const EncomendasView = ({ navigation }) => {
             <View>
                 <TextInput
                     style={style.edits}
-                    label="Pesquisar encomendas"
+                    label="Pesquisar encomendas pelo nome"
                     placeholder="Filtrar a busca"
                     value={edtSearch}
                     onChangeText={(e) => setEdtSearch(e)}
                 ></TextInput>
-                <FlatList
-                    style={style.edits}
-                    data={listaEncomendas}
-                    keyExtractor={(item) => (item && item.id ? item.id.toString() : '')}
-                    renderItem={({ item }) => {
-                        return (
-                            <View style={style.cont}>
-                                <Avatar.Text
-                                    size={64}
-                                    label={item.nome.substring(0, 2)}
-                                    style={style.logo}
-                                />
-                                <View style={style.cont1}>
-                                    <Text style={style.texto}>{item.nome.substring(0, 14)}</Text>
-                                    <Text style={style.texto}>{item.doces} - {parseInt(item.quantidade)} unidade(s)</Text>
-                                </View>
-                                <View>
-                                    <Button
-                                        mode="contained"
-                                        style={style.button}
-                                        onPress={() => console.log(obj)}
-                                    >
-                                        <Text style={style.buttonText}>Concluir</Text>
-                                    </Button>
+                <ScrollView>
+                    <View style={style.container}>
+                        {encomendas.map((property, index) => (
+                            <View key={index}>
+                                <View style={style.container}>
+                                    <View style={style.column}>
+                                        {property.nome && <Text style={style.texto1}>Nome: {property.nome} </Text>}
+                                        {property.tipoDoce && (
+                                            <Text style={style.texto1}>
+                                                Doce: {TiposDocesEnum[property.tipoDoce]}
+                                            </Text>
+                                        )}
+                                        {property.quantidade && <Text style={style.texto1}>Quantidade: {property.quantidade}</Text>}
+                                        {property.dataEntrega && <Text style={style.texto1}>Data Entrega: {property.dataEntrega}</Text>}
+                                    </View>
+                                    <View>
+                                        <Button mode="contained" style={style.button} onPress={() => handleConcluirButton(property)}>
+                                            <Text style={style.buttonText}>Concluir</Text>
+                                        </Button>
+                                    </View>
                                 </View>
                             </View>
-                        );
-                    }}
-                />
+                        ))}
+                    </View>
+                </ScrollView>
             </View>
-
         </View>
     );
 };

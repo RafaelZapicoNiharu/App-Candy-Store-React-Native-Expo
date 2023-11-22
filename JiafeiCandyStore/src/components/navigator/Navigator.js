@@ -14,6 +14,7 @@ import TelaListaDoce from "../../view/listaDoces/ListaDoceView"
 import TelaCadastroUser from "../../view/cadastroUser/CadastroUserView"
 import TelaEncomendas from "../../view/encomendas/EncomendasView"
 import TelaCadastroEncomendas from "../../view/cadastroEncomendas/CadastroEncomendasView"
+import { useAuth } from "../auth/AuthProvider";
 
 const Navigator = () => {
 
@@ -23,20 +24,17 @@ const Navigator = () => {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="telaInicial"
             >
-
                 <Stack.Screen name="Home"
                     component={TelaHome}
                     options={{ headerShown: false }}
                 />
-
                 <Stack.Screen name="Login"
                     component={TelaLogin}
                     options={{ headerShown: true }}
                 />
-
                 <Stack.Screen name="Cadastro"
                     component={TelaCadastroUser}
-                    options={{ headerShown: true }}
+                    options={{ headerShown: true, headerTitle: ''}}
                 />
                 <Stack.Screen name="Logado"
                     component={TelaLogado}
@@ -58,14 +56,15 @@ const Navigator = () => {
                     component={TelaMinhasEncomendas}
                     options={{ headerShown: true, headerTitle: '' }}
                 />
-                <Stack.Screen name="TelaMeusDados"
-                    component={TelaMeusDados}
-                    options={{ headerShown: true, headerTitle: '' }}
-                />
                 <Stack.Screen name="TelaCadastroEncomendas"
                     component={TelaCadastroEncomendas}
                     options={{ headerShown: true, headerTitle: '' }}
                 />
+                <Stack.Screen name="TelaMeusDados"
+                    component={TelaMeusDados}
+                    options={{ headerShown: true, headerTitle: '' }}
+                />
+
 
 
 

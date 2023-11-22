@@ -1,11 +1,13 @@
 import { StyleSheet, View } from "react-native";
-import NavigatorTab from "../../components/navigator/NavigatorTab";
-import TopBoard from "../../components/TopBoard/TopBoard";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Snackbar, Text, TextInput } from "react-native-paper";
 import { useState } from "react";
+// import { Picker } from "react-native-picker/picker";
+import TiposDocesEnum from "../../enum/TiposDocesEnum";
+import ValidaterUtilitiesEncomenda from "../Utilitarios/ValidaterUtilitiesEncomenda";
+import ObjectFactoryUtilities from "../Utilitarios/ObjectFactoryUtilities";
+import axios from 'axios';
+import { useAuth } from "../../components/auth/AuthProvider";
 import { Picker } from "react-native-web";
-import { doces } from "../../db/db.json"
-
 
 const CadastroEncomendasView = ({ navigation }) => {
     const style = StyleSheet.create({
@@ -14,17 +16,17 @@ const CadastroEncomendasView = ({ navigation }) => {
             alignItems: 'stretch',
             backgroundColor: '#fff',
         },
-        containerText: {
-            fontSize: 30,
-            textAlign: "center",
-            padding: 25,
-            color: '#614a41'
-        },
         containerHVBtn: {
             flex: 1,
             margin: 10,
             flexDirection: 'column',
             justifyContent: 'space-evenly',
+        },
+        containerText: {
+            fontSize: 30,
+            textAlign: "center",
+            padding: 25,
+            color: '#614a41'
         },
         button: {
             backgroundColor: '#614a41',
@@ -33,54 +35,80 @@ const CadastroEncomendasView = ({ navigation }) => {
             alignItems: 'center',
         },
         buttonText: {
-            fontWeight: 500,
+            fontWeight: "500",
             color: 'white',
             fontSize: 19,
         },
-        pickerContainer: {
-            marginBottom: 15
-        },
         picker: {
-            height: 40,
-            width: "100%",
+            padding: 15
         },
-        pickerText: {
-            fontWeight: 500,
-            color: 'rgb(73, 69, 79)',
-            fontSize: 19,
-            paddingBottom:10
+        select: {
+            fontSize: 16,
+            paddingBottom: 5
         },
+        snackbar:{
+            backgroundColor: 'red', 
+            alignItems: 'center', 
+            justifyContent: 'center'
+        },
+        snackbarText:{
+            color: 'white', 
+            textAlign: 'center' 
+        }
     });
 
-    const [obj, setObj] = useState({ name: "", doceId: null, quantidade: "", dataEntrega: "" })
-    const [selectedDoce, setSelectedDoce] = useState("");
+    const [obj, setObj] = useState({ nome: "", doce: "", quantidade: "", dataEntrega: "", tipoDoce: ""})
+    const { userData } = useAuth();
+    const [errorVisible, setErrorVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const beforeSaveEncomenda = async () => {
+
+        let tipoDoceError = ValidaterUtilitiesEncomenda.validacaoTipoDoce(obj.tipoDoce);
+        let quantidadeError = ValidaterUtilitiesEncomenda.validacaoQuantidade(obj.quantidade);
+        let dataEntregaError = ValidaterUtilitiesEncomenda.validacaoDataEntrega(obj.dataEntrega);
+
+        if (tipoDoceError || quantidadeError || dataEntregaError) {
+            setErrorVisible(true);
+            setErrorMessage(tipoDoceError || quantidadeError || dataEntregaError);
+        } else {
+            const objetoCadastroEncomenda = await ObjectFactoryUtilities.createEncomenda(
+                userData.id,
+                userData.nome,
+                obj.tipoDoce, // Apenas o valor selecionado, não um array
+                obj.quantidade,
+                obj.dataEntrega
+            );
+            let urlCadastro = `http://24dc-201-48-134-13.ngrok.io/encomendas/cadastrar/${userData.id}`;
+            console.log('Tipo de Doce selecionado:', obj.tipoDoce);
+            try {
+                const response = await axios.post(urlCadastro, objetoCadastroEncomenda);
+                if (response.status === 201) {
+                    console.log('Encomenda salva com sucesso:', response.data);
+                    navigation.navigate('Logado');
+                }
+            } catch (error) {
+                console.error('Erro ao salvar a Encomenda:', error);
+            }
+        }
+    };
 
 
     return (
 
         <View style={style.containerHV}>
             <Text style={style.containerText}>Cadastro Encomendas</Text>
-
             <View style={style.containerHVBtn}>
-
-                <TextInput
-                    label="Name"
-                    value={obj.name}
-                    onChangeText={(e) => setObj({ ...obj, name: e })}
-                />
-                <View style={style.pickerContainer}>
-                    <Text style={style.pickerText}>Escolha um doce:</Text>
+                <View>
+                    <Text style={style.select}>Escolha um doce:</Text>
                     <Picker
-                        selectedValue={selectedDoce}
-                        onValueChange={(itemValue, itemIndex) => {
-                            setSelectedDoce(itemValue);
-                            setObj({ ...obj, doceId: itemValue });
-                        }}
                         style={style.picker}
+                        selectedValue={obj.tipoDoce}
+                        onValueChange={(itemValue) => setObj({ ...obj, tipoDoce: itemValue })}
                     >
-                        <Picker.Item label="Selecione um doce" value={null} />
-                        {doces.map((doce) => (
-                            <Picker.Item key={doce.id} label={doce.nome} value={doce.id} />
+                        <Picker.Item label="Selecione um tipo de doce" value="" />
+                        {Object.values(TiposDocesEnum).map((tipoDoce) => (
+                            <Picker.Item key={tipoDoce} label={tipoDoce} value={tipoDoce} />
                         ))}
                     </Picker>
                 </View>
@@ -97,16 +125,20 @@ const CadastroEncomendasView = ({ navigation }) => {
                 <Button
                     mode="contained"
                     style={style.button}
-                    onPress={() => console.log(obj)}
+                    onPress={() => beforeSaveEncomenda()}
                 >
                     <Text style={style.buttonText}>Cadastrar Pedido</Text>
                 </Button>
+                <Snackbar
+                    visible={errorVisible}
+                    onDismiss={() => setErrorVisible(false)}
+                    duration={5000} // Tempo em milissegundos que o Snackbar ficará visível
+                    style={style.snackbar}
+                >
+                    <Text style={style.snackbarText}>{errorMessage}</Text>
+                </Snackbar>
             </View>
-
         </View>
-
-
-
     );
 };
 

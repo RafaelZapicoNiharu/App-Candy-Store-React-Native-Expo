@@ -23,7 +23,7 @@ const HomeView = ({ navigation }) => {
             alignItems: 'center',
         },
         buttonText: {
-            fontWeight: 500,
+        fontWeight: "500",
             color: 'white',
             fontSize: 19,
         },
@@ -44,11 +44,8 @@ const HomeView = ({ navigation }) => {
                     style={style.button}
                     onPress={() => navigation.navigate('Login')}
                 >
-
                     <Text style={style.buttonText}>Sign in</Text>
                 </Button>
-
-             
                 <Button
                     mode="contained"
                     style={style.button}

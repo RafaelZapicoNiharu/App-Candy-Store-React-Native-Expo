@@ -1,11 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import TopBoard from '../../components/TopBoard/TopBoard';
 import { Button, Avatar } from 'react-native-paper';
-import { useState } from "react"
-
-
-
+import { useAuth } from '../../components/auth/AuthProvider';
 
 const PerfilView = ({ navigation }) => {
 
@@ -22,10 +18,10 @@ const PerfilView = ({ navigation }) => {
             padding: 5,
             borderRadius: 30,
             alignItems: 'center',
-            marginBottom:35
+            marginBottom: 35
         },
         buttonText: {
-            fontWeight: 500,
+            fontWeight: "500",
             color: 'white',
             fontSize: 19,
         },
@@ -45,28 +41,25 @@ const PerfilView = ({ navigation }) => {
             color: '#614a41',
             textAlign: 'center',
             fontSize: 22,
-            fontWeight: 550,
+            fontWeight: "500",
         },
-
     });
 
-    return (
+    const { userData } = useAuth();
 
+    return (
         <>
             <View style={style.containerTB}>
-
                 <Avatar.Image style={style.avatar} size={134} source={require("../../../assets/img/furina.webp")} />
-                <Text style={style.TextoCad}>Seja bem vinda, Furina!</Text>
+                <Text style={style.TextoCad}>Seja bem vinda, {userData.nome}!</Text>
             </View>
-
             <View style={style.containerHVBtn}>
-
                 <Button
                     mode="contained"
                     style={style.button}
                     onPress={() => navigation.navigate('TelaMeusDados')}
                 >
-                    <Text style={style.buttonText}>Meus Dados</Text>
+                    <Text style={style.buttonText}>Editar Dados</Text>
                 </Button>
                 <Button
                     mode="contained"
@@ -77,7 +70,6 @@ const PerfilView = ({ navigation }) => {
                 </Button>
             </View>
         </>
-
     );
 };
 
