@@ -3,6 +3,7 @@ import { Button, Text, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import ApiManagerUtilities from "../Utilitarios/ApiManagerUtilities";
+import { buscaDoces } from "../../components/service/ServiceUtil";
 
 const ListaDoceView = () => {
     const style = StyleSheet.create({
@@ -55,7 +56,7 @@ const ListaDoceView = () => {
         console.log('Apagar button ', property);
         try {
             let id = property;
-            const response = await ApiManagerUtilities.deleteData('http://24dc-201-48-134-13.ngrok.io/doces/excluir', id);
+            const response = await ApiManagerUtilities.deleteData('http://localhost:3000/doces/excluir', id);
             console.log(response);
             if (response.status === 201) {
                 console.log('Doce apagado com sucesso:', response.data);
@@ -67,43 +68,35 @@ const ListaDoceView = () => {
     };
 
     useEffect(() => {
-        ApiManagerUtilities.fetchData('http://24dc-201-48-134-13.ngrok.io/doces', null)
-            .then(data => {
-                console.log(data);
-                setDoces(data);
+        const fetchDataPromise = ApiManagerUtilities.fetchData('http://localhost:3000/doces', null);
+        const buscaDocesPromise = buscaDoces(edtSearch);
+
+        Promise.all([fetchDataPromise, buscaDocesPromise])
+            .then(([fetchDataResult, buscaDocesResult]) => {
+                console.log("fetchDataResult:", fetchDataResult);
+                console.log("buscaDocesResult:", buscaDocesResult);
+
+                const docesArray = Array.isArray(fetchDataResult) ? fetchDataResult : [];
+                setDoces(edtSearch === '' ? docesArray : buscaDocesResult);
             })
             .catch(error => {
                 console.error('Erro ao buscar dados da API:', error);
             });
-    }, [reRender]);
-
-    useEffect(() => {
-        const apiUrlDoces = 'http://24dc-201-48-134-13.ngrok.io/doces';
-
-        fetch(apiUrlDoces)
-            .then(response => response.json())
-            .then(data => {
-                const filteredDoces = data.filter((doce) => edtSearch === '' || doce.tipoDoce.includes(edtSearch));
-                setDoces(filteredDoces);
-            })
-            .catch(error => {
-                console.error('Erro ao buscar dados dos doces da API:', error);
-            });
-    }, [edtSearch]);
+    }, [edtSearch, reRender]);
 
     return (
 
         <View style={style.containerHV}>
-            <Text style={style.containerText}>Lista de Doces</Text>
-            <View>
-                <TextInput
-                    style={style.edits}
-                    label="Pesquisar doce pelo nome"
-                    placeholder="Filtrar a busca"
-                    value={edtSearch}
-                    onChangeText={(e) => setEdtSearch(e)}
-                ></TextInput>
-                <ScrollView>
+            <ScrollView>
+                <Text style={style.containerText}>Lista de Doces</Text>
+                <View>
+                    <TextInput
+                        style={style.edits}
+                        label="Pesquisar doce pelo nome"
+                        placeholder="Filtrar a busca"
+                        value={edtSearch}
+                        onChangeText={(e) => setEdtSearch(e)}
+                    ></TextInput>
                     <View style={style.container}>
                         {doces.map((property, index) => (
                             <View key={index}>
@@ -122,8 +115,8 @@ const ListaDoceView = () => {
                             </View>
                         ))}
                     </View>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </View>
     );
 };

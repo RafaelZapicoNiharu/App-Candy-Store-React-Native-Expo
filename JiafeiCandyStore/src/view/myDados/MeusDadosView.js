@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Button, Avatar, TextInput, IconButton } from 'react-native-paper';
 import { useState } from "react"
 import { useAuth } from '../../components/auth/AuthProvider';
@@ -41,7 +41,14 @@ const MeusDadosView = ({ navigation }) => {
             flex: 0.5,
             flexDirection: "column",
             alignItems: "center",
-        }
+        },
+        separator: {
+            borderBottomWidth: 1,
+            borderBottomColor: 'white',
+            marginBottom: 5,
+            width: "95%",
+            alignSelf: 'center'
+        },
     });
 
     const [iconepassword, setIconepassword] = useState("eye")
@@ -58,18 +65,19 @@ const MeusDadosView = ({ navigation }) => {
         if (obj.nome, obj.email, obj.password, obj.cep, obj.logradouro, obj.bairro, obj.cidade, obj.estado, obj.numero) {
             const objeto = await ObjectFactoryUtilities.createUserEdit(userData.id, obj.nome, obj.email, obj.password, obj.cep, obj.logradouro, obj.bairro, obj.cidade, obj.estado, obj.numero, obj.complemento);
             try {
-                response = await ApiManagerUtilities.updateData('http://24dc-201-48-134-13.ngrok.io/usuarios/alterar', objeto);
+                response = await ApiManagerUtilities.updateData('http://localhost:3000/usuarios/alterar', objeto);
                 if (response.status != 404) {
+                    logout();
+                    navigation.navigate('Login')
                 }
             } catch (error) {
-                logout();
-                navigation.navigate('Login')
+                console.error('Erro ao deslogar', error);
             }
         }
     };
 
     return (
-        <>
+        <><ScrollView>
             <View style={style.containerTB}>
                 <Avatar.Image style={style.avatar} size={134}
                     source={require("../../../assets/img/furina.webp")} />
@@ -81,12 +89,14 @@ const MeusDadosView = ({ navigation }) => {
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, nome: e })}
                 />
+                <View style={style.separator} />
                 <TextInput
                     label="Email"
                     value={obj.email}
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, email: e })}
                 />
+                <View style={style.separator} />
                 <TextInput
                     label="Password"
                     secureTextEntry={mostrapassword}
@@ -98,6 +108,7 @@ const MeusDadosView = ({ navigation }) => {
                     }}
                     onPress={toggleIconepassword}
                 />
+                <View style={style.separator} />
                 <Text>Endereço:</Text>
                 <TextInput
                     label="CEP"
@@ -105,51 +116,58 @@ const MeusDadosView = ({ navigation }) => {
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, cep: e })}
                 />
+                <View style={style.separator} />
                 <TextInput
                     label="Logradouro"
                     value={obj.logradouro}
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, logradouro: e })}
                 />
+                <View style={style.separator} />
                 <TextInput
                     label="Bairro"
                     value={obj.bairro}
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, bairro: e })}
                 />
+                <View style={style.separator} />
                 <TextInput
                     label="Cidade"
                     value={obj.cidade}
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, cidade: e })}
                 />
+                <View style={style.separator} />
                 <TextInput
                     label="Estado"
                     value={obj.estado}
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, estado: e })}
                 />
+                <View style={style.separator} />
                 <TextInput
                     label="Número"
                     value={obj.numero}
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, numero: e })}
                 />
+                <View style={style.separator} />
                 <TextInput
                     label="Complemento"
                     value={obj.complemento}
                     // editable={isEditable}
                     onChangeText={(e) => setObj({ ...obj, complemento: e })}
                 />
+                <View style={style.separator} />
                 <Button
                     mode="contained"
                     style={style.button}
                     onPress={() => beforeSave()}
-
                 >
                     <Text style={style.buttonText}>Salvar Alterações</Text>
                 </Button>
             </View>
+        </ScrollView>
         </>
     );
 };

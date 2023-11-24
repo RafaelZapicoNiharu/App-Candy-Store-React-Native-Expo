@@ -27,7 +27,6 @@ const FuncionalView = ({ navigation }) => {
     const { isCliente, isAdmin } = useAuth();
 
     return (
-
         <View style={style.containerHVBtn}>
             {(isAdmin()) &&
                 <>
@@ -38,7 +37,6 @@ const FuncionalView = ({ navigation }) => {
                     >
                         <Text style={style.buttonText}>Cadastro Doce</Text>
                     </Button>
-
                     <Button
                         mode="contained"
                         style={style.button}
@@ -46,13 +44,19 @@ const FuncionalView = ({ navigation }) => {
                     >
                         <Text style={style.buttonText}>Lista de Doce</Text>
                     </Button>
-
                     <Button
                         mode="contained"
                         style={style.button}
                         onPress={() => navigation.navigate('Encomendas')}
                     >
                         <Text style={style.buttonText}>Encomendas</Text>
+                    </Button>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => navigation.navigate('Dashboard')}
+                    >
+                        <Text style={style.buttonText}>Dashboard</Text>
                     </Button>
                 </>
             }

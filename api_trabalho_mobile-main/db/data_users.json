@@ -1,97 +1,100 @@
 {
   "usuarios": [
     {
-      "id": 1,
-      "nome": "Rafael ",
-      "email": "123",
+      "nome": "Rafael",
+      "email": "rafael@gmail.com",
       "password": "123",
-      "cep": "36024242",
+      "cep": "36062080",
       "estado": "MG",
-      "logradouro": "Rua Jiafei Products",
-      "cidade": "Deborah Town novo",
+      "logradouro": "Rua Belarmina de Oliveira Teixeira",
+      "cidade": "Juiz de Fora",
+      "bairro": "Bosque dos Pinheiros",
+      "numero": "800",
+      "complemento": "",
+      "profile": "admin",
+      "id": 1
+    },
+    {
+      "nome": "Daves",
+      "email": "daves@gmail.com",
+      "password": "123",
+      "cep": "36062080",
+      "estado": "MG",
+      "logradouro": "Rua Belarmina de Oliveira Teixeira",
+      "cidade": "Juiz de Fora",
+      "bairro": "Bosque dos Pinheiros",
       "numero": "500",
-      "profile": "admin"
-    },
-    {
-      "id": 2,
-      "nome": "Taciane editado",
-      "email": "456",
-      "password": "456",
-      "cep": "36024242",
-      "estado": "MG",
-      "logradouro": "Rua Jiafei Products",
-      "cidade": "Deborah Town",
-      "numero": "5",
+      "complemento": "",
       "profile": "cliente",
-      "complemento": "novo"
+      "id": 2
     },
     {
-      "nome": "Ana",
-      "email": "789",
-      "password": "789",
+      "nome": "Taciane",
+      "email": "taciane@gmail.com",
+      "password": "123",
       "cep": "36061460",
       "estado": "MG",
       "logradouro": "Rua Ademar Ferreira Leite",
       "cidade": "Juiz de Fora",
       "bairro": "Santa Cândida",
-      "numero": "50",
+      "numero": "900",
       "complemento": "",
       "profile": "cliente",
       "id": 3
-    },
-    {
-      "nome": "joana",
-      "email": "321",
-      "password": "321",
-      "cep": "36061460",
-      "estado": "MG",
-      "logradouro": "Rua Ademar Ferreira Leite",
-      "cidade": "Juiz de Fora",
-      "bairro": "Santa Cândida",
-      "numero": "333",
-      "complemento": "",
-      "profile": "cliente",
-      "id": 4
-    },
-    {
-      "nome": "teste",
-      "email": "teste@gmail.com",
-      "password": "123",
-      "cep": "36061460",
-      "estado": "MG",
-      "logradouro": "Rua Ademar Ferreira Leite",
-      "cidade": "Juiz de Fora",
-      "bairro": "Santa Cândida",
-      "numero": "80",
-      "complemento": "",
-      "profile": "cliente",
-      "id": 5
     }
   ],
   "doces": [
     {
-      "preco": "50",
-      "quantidade": "56",
+      "preco": "3",
+      "quantidade": "100",
       "tipoDoce": "Brigadeiro",
-      "id": 7
+      "id": 1
+    },
+    {
+      "preco": "3",
+      "quantidade": "100",
+      "tipoDoce": "Beijinho",
+      "id": 2
+    },
+    {
+      "preco": "3",
+      "quantidade": "100",
+      "tipoDoce": "Cajuzinho",
+      "id": 3
     }
   ],
   "encomendas": [
     {
-      "idUser": 2,
+      "idUser": 3,
       "nome": "Taciane",
-      "quantidade": "20",
-      "dataEntrega": "21/11/2023",
-      "tipoDoce": "Josefina",
-      "id": 4
+      "quantidade": "50",
+      "dataEntrega": "24/12/2023",
+      "tipoDoce": "Brigadeiro",
+      "id": 1
+    },
+    {
+      "idUser": 3,
+      "nome": "Taciane",
+      "quantidade": "50",
+      "dataEntrega": "24/12/2023",
+      "tipoDoce": "Beijinho",
+      "id": 2
     },
     {
       "idUser": 2,
-      "nome": "Taciane",
-      "quantidade": "200",
-      "dataEntrega": "21/11/2023",
+      "nome": "Daves",
+      "quantidade": "50",
+      "dataEntrega": "30/12/2023",
       "tipoDoce": "Brigadeiro",
-      "id": 5
+      "id": 3
+    },
+    {
+      "idUser": 2,
+      "nome": "Daves",
+      "quantidade": "50",
+      "dataEntrega": "30/12/2023",
+      "tipoDoce": "Beijinho",
+      "id": 4
     }
   ]
 }

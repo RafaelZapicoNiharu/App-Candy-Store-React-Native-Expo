@@ -6,8 +6,9 @@ registerTranslation('pt', pt)
 export default function App() {
   return (
 
+    <AuthProvider>
       <Navigator></Navigator>
-
+    </AuthProvider>
     
   );
 }

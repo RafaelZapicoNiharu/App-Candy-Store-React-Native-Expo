@@ -8,7 +8,7 @@ class ValidaterUtilitiesEncomenda {
   };
 
   static validacaoQuantidade = (quantidade) => {
-    if (!quantidade || quantidade.length <= 1) {
+    if (!quantidade || quantidade.length < 1) {
       return "Por favor, preencha a quantidade";
     }
     return "";

@@ -4,7 +4,6 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const multer = require('multer');
 
 const app = express();
 const port = 3000;
@@ -100,6 +99,14 @@ app.get('/doces', (req, res) => {
   res.json(data.doces);
 });
 
+// Retorna a quantidade dos doces cadastrados
+app.get('/total-doces', (req, res) => {
+  const data = getDocesData();
+  const totalDoces = Array.isArray(data.doces) ? data.doces.length : 0;
+  res.json({ total: totalDoces });
+});
+
+
 // Rota para excluir um doce com base no ID
 app.delete('/doces/excluir', (req, res) => {
   const { id } = req.body; // Recebe o ID do doce a ser excluído a partir do corpo da requisição
@@ -168,6 +175,13 @@ app.post('/encomendas/cadastrar/:id', (req, res) => {
 app.get('/encomendas', (req, res) => {
   const data = getEncomendasData();
   res.json(data.encomendas);
+});
+
+// Retorna a quantidade das encomendas cadastrados
+app.get('/total-encomendas', (req, res) => {
+  const data = getEncomendasData();
+  const totalEncomendas = Array.isArray(data.encomendas) ? data.encomendas.length : 0;
+  res.json({ total: totalEncomendas });
 });
 
 app.get('/encomendas/:idUser', (req, res) => {

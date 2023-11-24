@@ -53,7 +53,14 @@ const CadastroDoceView = ({ navigation }) => {
         snackbarText: {
             color: 'white',
             textAlign: 'center'
-        }
+        },
+        separator: {
+            borderBottomWidth: 1,
+            borderBottomColor: 'white',
+            marginBottom: 5,
+            width: "95%",
+            alignSelf: 'center'
+        },
     });
 
     const [obj, setObj] = useState({ preco: "", quantidade: "", tipoDoce: "" })
@@ -64,13 +71,12 @@ const CadastroDoceView = ({ navigation }) => {
         let tipoDoceError = ValidaterUtilitiesDoce.validacaoTipoDoce(obj.tipoDoce);
         let precoError = ValidaterUtilitiesDoce.validacaoPreco(obj.preco);
         let quantidadeError = ValidaterUtilitiesDoce.validacaoQuantidade(obj.quantidade);
-
         if (tipoDoceError || precoError || quantidadeError) {
             setErrorVisible(true);
             setErrorMessage(tipoDoceError || precoError || quantidadeError);
         } else {
             const objetoDoce = await ObjectFactoryUtilities.createDoce(obj.preco, obj.quantidade, obj.tipoDoce);
-            let urlCadastro = 'http://24dc-201-48-134-13.ngrok.io/doces/cadastrar';
+            let urlCadastro = 'http://localhost:3000/doces/cadastrar';
 
             try {
                 const response = await axios.post(urlCadastro, objetoDoce);
@@ -85,11 +91,10 @@ const CadastroDoceView = ({ navigation }) => {
     };
 
     return (
-
         <View style={style.containerHV}>
-            <Text style={style.containerText}>Cadastro de Doces</Text>
-            <View style={style.containerHVBtn}>
-                <ScrollView>
+            <ScrollView>
+                <Text style={style.containerText}>Cadastro de Doces</Text>
+                <View style={style.containerHVBtn}>
                     <View>
                         <Text style={style.select}>Doce:</Text>
                         <Picker
@@ -103,16 +108,19 @@ const CadastroDoceView = ({ navigation }) => {
                             ))}
                         </Picker>
                     </View>
+                    <View style={style.separator} />
                     <TextInput
                         label="Preço"
                         value={obj.preco}
                         onChangeText={(e) => setObj({ ...obj, preco: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         label="Quantidade"
                         value={obj.quantidade}
                         onChangeText={(e) => setObj({ ...obj, quantidade: e })}
                     />
+                    <View style={style.separator} />
                     <Button
                         mode="contained"
                         style={style.button}
@@ -120,17 +128,19 @@ const CadastroDoceView = ({ navigation }) => {
                     >
                         <Text style={style.buttonText}>Cadastrar</Text>
                     </Button>
-                    <Snackbar
-                        visible={errorVisible}
-                        onDismiss={() => setErrorVisible(false)}
-                        duration={5000} // Tempo em milissegundos que o Snackbar ficará visível
-                        style={style.snackbar}
-                    >
-                        <Text style={style.snackbarText}>{errorMessage}</Text>
-                    </Snackbar>
-                </ScrollView>
-            </View>
+                </View>
 
+            </ScrollView>
+            <View>
+                <Snackbar
+                    visible={errorVisible}
+                    onDismiss={() => setErrorVisible(false)}
+                    duration={3000}
+                    style={style.snackbar}
+                >
+                    <Text style={style.snackbarText}>{errorMessage}</Text>
+                </Snackbar>
+            </View>
         </View>
     );
 };

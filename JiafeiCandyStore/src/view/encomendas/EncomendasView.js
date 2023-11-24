@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import ApiManagerUtilities from "../Utilitarios/ApiManagerUtilities";
 import TiposDocesEnum from "../../enum/TiposDocesEnum";
+import { buscaEncomendas } from "../../components/service/ServiceUtil";
 
 const EncomendasView = () => {
     const style = StyleSheet.create({
@@ -51,7 +52,7 @@ const EncomendasView = () => {
     const handleConcluirButton = async (property) => {
         console.log('Concluir button ', property);
         try {
-            const response = await ApiManagerUtilities.deleteData('http://24dc-201-48-134-13.ngrok.io/encomendas/excluir', property);
+            const response = await ApiManagerUtilities.deleteData('http://localhost:3000/encomendas/excluir', property);
             if (response.status === 201) {
                 console.log('Doce apagado com sucesso:', response.data);
             }
@@ -66,47 +67,34 @@ const EncomendasView = () => {
     };
 
     useEffect(() => {
-        ApiManagerUtilities.fetchData('http://24dc-201-48-134-13.ngrok.io/encomendas', null)
-            .then(data => {
-                console.log(data);
-                setEncomendas(data);
-                // console.log(data.tipoDoce);
-            })
-            .catch(error => {
-                console.error('Erro ao buscar dados da API:', error);
-            });
-    }, [reRender]);
+        const fetchDataPromise = ApiManagerUtilities.fetchData('http://localhost:3000/encomendas', null);
+        const buscaEncomendasPromise = buscaEncomendas(edtSearch);
 
-    useEffect(() => {
-        const apiUrl = 'http://24dc-201-48-134-13.ngrok.io/encomendas';
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const searchTermLower = edtSearch.toLowerCase();
-                const filteredEncomendas = data.filter((encomenda) => 
-                    searchTermLower === '' || 
-                    encomenda.nome.toLowerCase().includes(searchTermLower)
-                );
-                setEncomendas(filteredEncomendas);
+        Promise.all([fetchDataPromise, buscaEncomendasPromise])
+            .then(([fetchDataResult, buscaEncomendasResult]) => {
+                console.log("fetchDataResult:", fetchDataResult);
+                console.log("buscaEncomendasResult:", buscaEncomendasResult);
+
+                const encomendasArray = Array.isArray(fetchDataResult) ? fetchDataResult : [];
+                setEncomendas(edtSearch === '' ? encomendasArray : buscaEncomendasResult);
             })
             .catch(error => {
-                console.error('Erro ao buscar dados da API:', error);
+                console.error('Erro ao buscar dados das encomendas da API:', error);
             });
-    }, [edtSearch]);
+    }, [edtSearch, reRender]);
 
     return (
-
         <View style={style.containerHV}>
-            <Text style={style.containerText}>Encomendas</Text>
-            <View>
-                <TextInput
-                    style={style.edits}
-                    label="Pesquisar encomendas pelo nome"
-                    placeholder="Filtrar a busca"
-                    value={edtSearch}
-                    onChangeText={(e) => setEdtSearch(e)}
-                ></TextInput>
-                <ScrollView>
+            <ScrollView>
+                <Text style={style.containerText}>Encomendas</Text>
+                <View>
+                    <TextInput
+                        style={style.edits}
+                        label="Pesquisar encomendas pelo nome"
+                        placeholder="Filtrar a busca"
+                        value={edtSearch}
+                        onChangeText={(e) => setEdtSearch(e)}
+                    ></TextInput>
                     <View style={style.container}>
                         {encomendas.map((property, index) => (
                             <View key={index}>
@@ -130,8 +118,8 @@ const EncomendasView = () => {
                             </View>
                         ))}
                     </View>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </View>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import TopBoard from '../../components/TopBoard/TopBoard';
-import { Button, TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 const HomeView = ({ navigation }) => {
     const style = StyleSheet.create({
@@ -23,7 +23,7 @@ const HomeView = ({ navigation }) => {
             alignItems: 'center',
         },
         buttonText: {
-        fontWeight: "500",
+            fontWeight: "500",
             color: 'white',
             fontSize: 19,
         },

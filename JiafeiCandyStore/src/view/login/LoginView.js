@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import TopBoard from '../../components/TopBoard/TopBoard';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, Snackbar, TextInput } from 'react-native-paper';
 import { useState } from "react";
 import ObjectFactoryUtilities from '../Utilitarios/ObjectFactoryUtilities';
 import axios from 'axios';
@@ -44,11 +43,30 @@ const LoginView = ({ navigation }) => {
             marginTop: 50,
             color: "#9399a3"
         },
+        separator: {
+            borderBottomWidth: 1,
+            borderBottomColor: 'white',
+            marginBottom: 5,
+            width: "95%",
+            alignSelf: 'center'
+        },
+        snackbar: {
+            backgroundColor: 'red',
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        snackbarText: {
+            color: 'white',
+            textAlign: 'center'
+        },
     });
+
     const [iconepassword, setIconepassword] = useState("eye")
     const [mostrapassword, setMostrapassword] = useState(true)
-    const [obj, setObj] = useState({ email: "123", password: "123" })
+    const [obj, setObj] = useState({ email: "rafael@gmail.com", password: "123" })
     const { saveUser } = useAuth();
+    const [errorVisible, setErrorVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const toggleIconepassword = () => {
         setIconepassword(iconepassword === "eye" ? "eye-off" : "eye");
@@ -58,7 +76,7 @@ const LoginView = ({ navigation }) => {
     const Logar = async () => {
         try {
             let objetoLogin = await ObjectFactoryUtilities.createSimpleUser(obj.email, obj.password);
-            let urlLogin = 'http://24dc-201-48-134-13.ngrok.io/login/validate';
+            let urlLogin = 'http://localhost:3000/login/validate';
             let response = await axios.post(urlLogin, objetoLogin);
             if (response.status != 401) {
                 saveUser(response);
@@ -66,13 +84,13 @@ const LoginView = ({ navigation }) => {
                 navigation.navigate('Logado')
             }
         } catch (error) {
-            console.error('Erro ao logar o user:', error);
+            setErrorMessage("Login ou senha incorretos");
+            setErrorVisible(true);
         }
     };
 
     return (
         <View style={style.containerHV}>
-            
             <ScrollView>
                 <View style={style.containerHVBtn}>
                     <TextInput
@@ -80,6 +98,7 @@ const LoginView = ({ navigation }) => {
                         value={obj.email}
                         onChangeText={(e) => setObj({ ...obj, email: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         value={obj.password}
                         onChangeText={(e) => setObj({ ...obj, password: e })}
@@ -98,6 +117,16 @@ const LoginView = ({ navigation }) => {
                     </Button>
                 </View>
             </ScrollView>
+            <View>
+                <Snackbar
+                    visible={errorVisible}
+                    onDismiss={() => setErrorVisible(false)}
+                    duration={3000}
+                    style={style.snackbar}
+                >
+                    <Text style={style.snackbarText}>{errorMessage}</Text>
+                </Snackbar>
+            </View>
             <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>
         </View>
     );

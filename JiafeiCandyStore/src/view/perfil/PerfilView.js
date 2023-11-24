@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Button, Avatar } from 'react-native-paper';
 import { useAuth } from '../../components/auth/AuthProvider';
 
@@ -45,30 +45,37 @@ const PerfilView = ({ navigation }) => {
         },
     });
 
-    const { userData } = useAuth();
+    const { userData, logout } = useAuth();
+
+    const deslogarUser = () => {
+        logout();
+        navigation.navigate('Home');
+    };
 
     return (
         <>
-            <View style={style.containerTB}>
-                <Avatar.Image style={style.avatar} size={134} source={require("../../../assets/img/furina.webp")} />
-                <Text style={style.TextoCad}>Seja bem vinda, {userData.nome}!</Text>
-            </View>
-            <View style={style.containerHVBtn}>
-                <Button
-                    mode="contained"
-                    style={style.button}
-                    onPress={() => navigation.navigate('TelaMeusDados')}
-                >
-                    <Text style={style.buttonText}>Editar Dados</Text>
-                </Button>
-                <Button
-                    mode="contained"
-                    style={style.button}
-                    onPress={() => navigation.navigate('Home')}
-                >
-                    <Text style={style.buttonText}>Sair</Text>
-                </Button>
-            </View>
+            <ScrollView>
+                <View style={style.containerTB}>
+                    <Avatar.Image style={style.avatar} size={134} source={require("../../../assets/img/furina.webp")} />
+                    <Text style={style.TextoCad}>Seja bem vinda, {userData.nome}!</Text>
+                </View>
+                <View style={style.containerHVBtn}>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => navigation.navigate('TelaMeusDados')}
+                    >
+                        <Text style={style.buttonText}>Editar Dados</Text>
+                    </Button>
+                    <Button
+                        mode="contained"
+                        style={style.button}
+                        onPress={() => deslogarUser()}
+                    >
+                        <Text style={style.buttonText}>Sair</Text>
+                    </Button>
+                </View>
+            </ScrollView>
         </>
     );
 };

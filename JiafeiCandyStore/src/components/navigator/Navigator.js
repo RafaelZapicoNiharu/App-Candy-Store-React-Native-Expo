@@ -14,6 +14,7 @@ import TelaListaDoce from "../../view/listaDoces/ListaDoceView"
 import TelaCadastroUser from "../../view/cadastroUser/CadastroUserView"
 import TelaEncomendas from "../../view/encomendas/EncomendasView"
 import TelaCadastroEncomendas from "../../view/cadastroEncomendas/CadastroEncomendasView"
+import TelaDashboard from "../../view/dashboard/DashboardView"
 import { useAuth } from "../auth/AuthProvider";
 
 const Navigator = () => {
@@ -34,7 +35,7 @@ const Navigator = () => {
                 />
                 <Stack.Screen name="Cadastro"
                     component={TelaCadastroUser}
-                    options={{ headerShown: true, headerTitle: ''}}
+                    options={{ headerShown: true, headerTitle: '' }}
                 />
                 <Stack.Screen name="Logado"
                     component={TelaLogado}
@@ -52,6 +53,10 @@ const Navigator = () => {
                     component={TelaEncomendas}
                     options={{ headerShown: true, headerTitle: '' }}
                 />
+                <Stack.Screen name="Dashboard"
+                    component={TelaDashboard}
+                    options={{ headerShown: true, headerTitle: '' }}
+                />
                 <Stack.Screen name="TelaMinhasEncomendas"
                     component={TelaMinhasEncomendas}
                     options={{ headerShown: true, headerTitle: '' }}
@@ -64,12 +69,7 @@ const Navigator = () => {
                     component={TelaMeusDados}
                     options={{ headerShown: true, headerTitle: '' }}
                 />
-
-
-
-
             </Stack.Navigator>
-
         </NavigationContainer>
     )
 }

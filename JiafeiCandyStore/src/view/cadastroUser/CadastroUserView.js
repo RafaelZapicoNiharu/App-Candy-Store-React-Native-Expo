@@ -58,7 +58,14 @@ const CadastroUserView = ({ navigation }) => {
         snackbarText: {
             color: 'white',
             textAlign: 'center'
-        }
+        },
+        separator: {
+            borderBottomWidth: 1,
+            borderBottomColor: 'white',
+            marginBottom: 5,
+            width: "95%",
+            alignSelf: 'center'
+        },
     });
 
     const [iconepassword, setIconepassword] = useState("eye")
@@ -82,7 +89,6 @@ const CadastroUserView = ({ navigation }) => {
         let cidadeError = ValidaterUtilities.validacaoCidade(obj.cidade);
         let estadoError = ValidaterUtilities.validacaoEstado(obj.estado);
         let numeroError = ValidaterUtilities.validacaoNumero(obj.numero);
-
         if (
             nomeError || emailError || passwordError ||
             cepError || logradouroError || bairroError ||
@@ -94,7 +100,7 @@ const CadastroUserView = ({ navigation }) => {
             );
         } else {
             const objetoCadastro = await ObjectFactoryUtilities.createUser(obj.nome, obj.email, obj.password, obj.cep, obj.logradouro, obj.bairro, obj.cidade, obj.estado, obj.numero, obj.complemento);
-            let urlCadastro = 'http://24dc-201-48-134-13.ngrok.io/usuarios/cadastrar'
+            let urlCadastro = 'http://localhost:3000/usuarios/cadastrar'
             console.log("Deu bom");
             try {
                 const response = await axios.post(urlCadastro, objetoCadastro);
@@ -143,19 +149,21 @@ const CadastroUserView = ({ navigation }) => {
 
     return (
         <View style={style.containerHV}>
-            <Text style={style.containerText}>Cadastro Usuário</Text>
             <ScrollView>
+                <Text style={style.containerText}>Cadastro Usuário</Text>
                 <View style={style.containerHVBtn}>
                     <TextInput
                         label="Nome"
                         value={obj.nome}
                         onChangeText={(e) => setObj({ ...obj, nome: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         label="Email"
                         value={obj.email}
                         onChangeText={(e) => setObj({ ...obj, email: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         label="Password"
                         secureTextEntry={mostrapassword}
@@ -166,27 +174,32 @@ const CadastroUserView = ({ navigation }) => {
                         }}
                         onPress={toggleIconepassword}
                     />
+                    <View style={style.separator} />
                     <Text>Endereço:</Text>
                     <TextInput
                         label="CEP"
                         value={obj.cep}
                         onChangeText={(e) => setObj({ ...obj, cep: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         label="Logradouro"
                         value={obj.logradouro}
                         onChangeText={(e) => setObj({ ...obj, logradouro: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         label="Bairro"
                         value={obj.bairro}
                         onChangeText={(e) => setObj({ ...obj, bairro: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         label="Cidade"
                         value={obj.cidade}
                         onChangeText={(e) => setObj({ ...obj, cidade: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         label="Estado"
                         value={obj.estado}
@@ -197,6 +210,7 @@ const CadastroUserView = ({ navigation }) => {
                         value={obj.numero}
                         onChangeText={(e) => setObj({ ...obj, numero: e })}
                     />
+                    <View style={style.separator} />
                     <TextInput
                         label="Complemento"
                         value={obj.complemento}
@@ -211,16 +225,18 @@ const CadastroUserView = ({ navigation }) => {
                         <Text style={style.buttonText}>Sign up</Text>
                     </Button>
                 </View>
+                <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>
             </ScrollView>
-            <Text style={style.additionalText}>"São seres de luz que realizam docinhos"</Text>
-            <Snackbar
-                visible={errorVisible}
-                onDismiss={() => setErrorVisible(false)}
-                duration={5000}
-                style={style.snackbar}
-            >
-                <Text style={style.snackbarText}>{errorMessage}</Text>
-            </Snackbar>
+            <View>
+                <Snackbar
+                    visible={errorVisible}
+                    onDismiss={() => setErrorVisible(false)}
+                    duration={3000}
+                    style={style.snackbar}
+                >
+                    <Text style={style.snackbarText}>{errorMessage}</Text>
+                </Snackbar>
+            </View>
         </View>
     );
 };

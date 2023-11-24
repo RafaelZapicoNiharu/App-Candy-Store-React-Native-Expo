@@ -46,7 +46,7 @@ const MyEncomendasView = () => {
     const { userData } = useAuth();
 
     useEffect(() => {
-        const apiUrl = `http://24dc-201-48-134-13.ngrok.io/encomendas/${userData.id}`;
+        const apiUrl = `http://localhost:3000/encomendas/${userData.id}`;
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
@@ -64,16 +64,17 @@ const MyEncomendasView = () => {
 
     return (
         <View style={style.containerHV}>
-            <Text style={style.containerText}>Minhas Encomendas</Text>
-            <View>
-                <TextInput
-                    style={style.edits}
-                    label="Pesquisar encomendas pelo nome"
-                    placeholder="Filtrar a busca"
-                    value={edtSearch}
-                    onChangeText={(e) => setEdtSearch(e)}
-                ></TextInput>
-                <ScrollView>
+            <ScrollView>
+                <Text style={style.containerText}>Minhas Encomendas</Text>
+                <View>
+                    <TextInput
+                        style={style.edits}
+                        label="Pesquisar encomendas pelo nome"
+                        placeholder="Filtrar a busca"
+                        value={edtSearch}
+                        onChangeText={(e) => setEdtSearch(e)}
+                    ></TextInput>
+
                     <View style={style.container}>
                         {encomendas.map((property, index) => (
                             <View key={index}>
@@ -92,8 +93,8 @@ const MyEncomendasView = () => {
                             </View>
                         ))}
                     </View>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </View>
     );
 };

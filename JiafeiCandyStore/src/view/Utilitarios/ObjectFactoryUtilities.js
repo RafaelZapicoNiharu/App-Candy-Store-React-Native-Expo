@@ -82,7 +82,6 @@ class ObjectFactoryUtilities {
                 bairro: bairro,
                 numero: numero,
                 complemento: complemento,
-                // profile: profile,
             };
             setTimeout(() => {
                 console.log(novoUser);
