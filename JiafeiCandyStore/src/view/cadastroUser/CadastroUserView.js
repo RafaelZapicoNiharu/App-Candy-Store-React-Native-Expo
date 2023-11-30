@@ -100,7 +100,7 @@ const CadastroUserView = ({ navigation }) => {
             );
         } else {
             const objetoCadastro = await ObjectFactoryUtilities.createUser(obj.nome, obj.email, obj.password, obj.cep, obj.logradouro, obj.bairro, obj.cidade, obj.estado, obj.numero, obj.complemento);
-            let urlCadastro = 'http://localhost:3000/usuarios/cadastrar'
+            let urlCadastro = 'http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/usuarios/cadastrar'
             console.log("Deu bom");
             try {
                 const response = await axios.post(urlCadastro, objetoCadastro);

@@ -56,7 +56,7 @@ const ListaDoceView = () => {
         console.log('Apagar button ', property);
         try {
             let id = property;
-            const response = await ApiManagerUtilities.deleteData('http://localhost:3000/doces/excluir', id);
+            const response = await ApiManagerUtilities.deleteData('http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/doces/excluir', id);
             console.log(response);
             if (response.status === 201) {
                 console.log('Doce apagado com sucesso:', response.data);
@@ -68,7 +68,7 @@ const ListaDoceView = () => {
     };
 
     useEffect(() => {
-        const fetchDataPromise = ApiManagerUtilities.fetchData('http://localhost:3000/doces', null);
+        const fetchDataPromise = ApiManagerUtilities.fetchData('http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/doces', null);
         const buscaDocesPromise = buscaDoces(edtSearch);
 
         Promise.all([fetchDataPromise, buscaDocesPromise])

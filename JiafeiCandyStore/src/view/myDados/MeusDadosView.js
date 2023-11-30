@@ -65,7 +65,7 @@ const MeusDadosView = ({ navigation }) => {
         if (obj.nome, obj.email, obj.password, obj.cep, obj.logradouro, obj.bairro, obj.cidade, obj.estado, obj.numero) {
             const objeto = await ObjectFactoryUtilities.createUserEdit(userData.id, obj.nome, obj.email, obj.password, obj.cep, obj.logradouro, obj.bairro, obj.cidade, obj.estado, obj.numero, obj.complemento);
             try {
-                response = await ApiManagerUtilities.updateData('http://localhost:3000/usuarios/alterar', objeto);
+                response = await ApiManagerUtilities.updateData('http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/usuarios/alterar', objeto);
                 if (response.status != 404) {
                     logout();
                     navigation.navigate('Login')

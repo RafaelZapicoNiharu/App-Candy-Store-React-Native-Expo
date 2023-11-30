@@ -44,7 +44,7 @@ const DashboardView = () => {
 
     const getQuantidadeDoces = async () => {
         try {
-            const response = await fetch('http://localhost:3000/total-doces');
+            const response = await fetch('http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/total-doces');
             if (!response.ok) {
                 throw new Error('Erro ao obter a resposta da API');
             }
@@ -61,7 +61,7 @@ const DashboardView = () => {
 
     const getQuantidadeEncomendas = async () => {
         try {
-            const response = await fetch('http://localhost:3000/total-encomendas');
+            const response = await fetch('http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/total-encomendas');
             if (!response.ok) {
                 throw new Error('Erro ao obter a resposta da API');
             }

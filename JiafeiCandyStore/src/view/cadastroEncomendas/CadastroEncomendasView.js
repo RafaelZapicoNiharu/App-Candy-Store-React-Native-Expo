@@ -86,7 +86,7 @@ const CadastroEncomendasView = ({ navigation }) => {
                 obj.quantidade,
                 obj.dataEntrega
             );
-            let urlCadastro = `http://localhost:3000/encomendas/cadastrar/${userData.id}`;
+            let urlCadastro = `http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/encomendas/cadastrar/${userData.id}`;
             console.log('Tipo de Doce selecionado:', obj.tipoDoce);
             try {
                 const response = await axios.post(urlCadastro, objetoCadastroEncomenda);

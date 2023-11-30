@@ -76,7 +76,7 @@ const CadastroDoceView = ({ navigation }) => {
             setErrorMessage(tipoDoceError || precoError || quantidadeError);
         } else {
             const objetoDoce = await ObjectFactoryUtilities.createDoce(obj.preco, obj.quantidade, obj.tipoDoce);
-            let urlCadastro = 'http://localhost:3000/doces/cadastrar';
+            let urlCadastro = 'http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/doces/cadastrar';
 
             try {
                 const response = await axios.post(urlCadastro, objetoDoce);

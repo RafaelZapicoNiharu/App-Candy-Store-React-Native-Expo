@@ -12,7 +12,7 @@ const buscaCEP2 = async (cep) => {
 }
 
 const buscaDoces = (pesq = '') => {
-    return fetch("http://localhost:3000/doces", { headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "/" } }, 5000)
+    return fetch("http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/doces", { headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "/" } }, 5000)
         .then((resp) => {
             return resp.json()
         }).then((json) => {
@@ -28,7 +28,7 @@ const buscaDoces = (pesq = '') => {
 }
 
 const buscaEncomendas = (pesq = '') => {
-    return fetch("http://localhost:3000/encomendas", { headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "/" } }, 5000)
+    return fetch("http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/encomendas", { headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "/" } }, 5000)
         .then((resp) => {
             return resp.json()
         }).then((json) => {

@@ -52,7 +52,7 @@ const EncomendasView = () => {
     const handleConcluirButton = async (property) => {
         console.log('Concluir button ', property);
         try {
-            const response = await ApiManagerUtilities.deleteData('http://localhost:3000/encomendas/excluir', property);
+            const response = await ApiManagerUtilities.deleteData('http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/encomendas/excluir', property);
             if (response.status === 201) {
                 console.log('Doce apagado com sucesso:', response.data);
             }
@@ -67,7 +67,7 @@ const EncomendasView = () => {
     };
 
     useEffect(() => {
-        const fetchDataPromise = ApiManagerUtilities.fetchData('http://localhost:3000/encomendas', null);
+        const fetchDataPromise = ApiManagerUtilities.fetchData('http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/encomendas', null);
         const buscaEncomendasPromise = buscaEncomendas(edtSearch);
 
         Promise.all([fetchDataPromise, buscaEncomendasPromise])

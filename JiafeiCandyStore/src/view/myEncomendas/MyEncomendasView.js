@@ -46,7 +46,7 @@ const MyEncomendasView = () => {
     const { userData } = useAuth();
 
     useEffect(() => {
-        const apiUrl = `http://localhost:3000/encomendas/${userData.id}`;
+        const apiUrl = `http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/encomendas/${userData.id}`;
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {

@@ -76,7 +76,7 @@ const LoginView = ({ navigation }) => {
     const Logar = async () => {
         try {
             let objetoLogin = await ObjectFactoryUtilities.createSimpleUser(obj.email, obj.password);
-            let urlLogin = 'http://localhost:3000/login/validate';
+            let urlLogin = 'http://ec2-52-200-79-59.compute-1.amazonaws.com:3000/login/validate';
             let response = await axios.post(urlLogin, objetoLogin);
             if (response.status != 401) {
                 saveUser(response);
